@@ -8,7 +8,7 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-        data: Theme.of(context).copyWith(primaryColor: Color(0xFFEFEFEF)),
+        data: Theme.of(context).copyWith(primaryColor: Colors.grey[50]),
         child: Drawer(
             child: Column(children: <Widget>[
           DrawerHeader(

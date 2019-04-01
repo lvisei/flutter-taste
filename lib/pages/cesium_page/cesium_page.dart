@@ -10,8 +10,8 @@ class CesiumPage extends StatefulWidget {
 
 class _CesiumPageState extends State<CesiumPage> {
   final flutterWebViewPlugin = new FlutterWebviewPlugin();
-  var url = 'https://liuvigongzuoshi.github.io/cesium-react';
-  var url2 = 'https://threejs.org/examples/#webgl_geometry_minecraft_ao';
+  String url = 'https://liuvigongzuoshi.github.io/cesium-react';
+  String url2 = 'https://threejs.org/examples/#webgl_geometry_minecraft_ao';
 
   @override
   void initState() {
@@ -26,17 +26,23 @@ class _CesiumPageState extends State<CesiumPage> {
   @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
+      appBar: AppBar(
+        title: Text("Cesium Demo"),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.share), onPressed: null),
+        ],
+      ),
       url: url,
       withLocalStorage: true,
       withJavascript: true,
       withZoom: false,
-      hidden: false,
+      hidden: true,
       supportMultipleWindows: true,
       allowFileURLs: true,
       geolocationEnabled: true,
       initialChild: Container(
         child: const Center(
-          child: Text('Waiting.....'),
+          child: Text('Waiting.....', style: TextStyle(color: Colors.blue)),
         ),
       ),
     );

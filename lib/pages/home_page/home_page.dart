@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           title: Text(_title),
           leading: Builder(builder: (context) {
             return IconButton(
-              icon: Icon(Icons.apps, color: Colors.white),
+              icon: Icon(Icons.apps),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
