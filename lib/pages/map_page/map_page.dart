@@ -88,6 +88,13 @@ class _MapPageState extends State<MapPage> {
           borderColor: Color.fromARGB(150, 52, 33, 55))
     ];
 
+    // 状态栏高度
+    double statusBarHeight = MediaQueryData
+        .fromWindow(WidgetsBinding.instance.window)
+        .padding
+        .top;
+    print(statusBarHeight);
+
     return Stack(
       children: <Widget>[
         FlutterMap(
@@ -109,7 +116,7 @@ class _MapPageState extends State<MapPage> {
         ),
         Positioned(
           left: 8.0,
-          top: 28.0,
+          top: statusBarHeight,
           child: new Column(
             children: <Widget>[
               new RaisedButton(
@@ -139,7 +146,7 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
         Positioned(
-          top: 28.0,
+          top: statusBarHeight,
           right: 8.0,
           child: new Column(
             children: <Widget>[

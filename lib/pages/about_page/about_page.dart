@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_app/pages/web_view_page/web_view_page.dart.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -6,12 +7,12 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
+  String url = 'https://github.com/liuvigongzuoshi/flutter-demo';
+  String juejing = 'https://juejin.im/timeline';
+  String title = 'An initial taste of the Flutter project';
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'AboutPage',
-      ),
-    );
+    return WebViewPage(url, title);
   }
 }

@@ -14,7 +14,7 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   var __currentPage;
   final List<BottomNavigationBarItem> bottomNavigationItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
