@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:geolocator/geolocator.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -28,6 +29,16 @@ class _MapPageState extends State<MapPage> {
         content: content,
         duration: new Duration(seconds: 1),
         backgroundColor: Color.fromARGB(0, 0, 0, 0)));
+  }
+
+  void _getLocatin() async {
+    Position position = await Geolocator()
+        .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
+    if (position == null) {
+      _showSnackBar(new Text('location erro'));
+    } else {
+      mapController.move(LatLng(position.latitude, position.longitude), 12);
+    }
   }
 
   @override
@@ -89,10 +100,11 @@ class _MapPageState extends State<MapPage> {
     ];
 
     // 状态栏高度
-    double statusBarHeight = MediaQueryData
-        .fromWindow(WidgetsBinding.instance.window)
-        .padding
-        .top;
+    double statusBarHeight =
+        MediaQueryData
+            .fromWindow(WidgetsBinding.instance.window)
+            .padding
+            .top;
     print(statusBarHeight);
 
     return Stack(
@@ -100,7 +112,7 @@ class _MapPageState extends State<MapPage> {
         FlutterMap(
           mapController: mapController,
           options: new MapOptions(
-              center: new LatLng(36, 105), zoom: 4.0, minZoom: 2, maxZoom: 18),
+              center: new LatLng(36, 105), zoom: 2.5, minZoom: 2, maxZoom: 18),
           layers: [
             new TileLayerOptions(
                 urlTemplate: TdtMapUrl.vec_w,
@@ -187,7 +199,10 @@ class _MapPageState extends State<MapPage> {
             bottom: 18.0,
             right: 0.0,
             child: RaisedButton(
-                onPressed: () => {_showSnackBar(new Text('my_location'))},
+                onPressed: () =>
+                {
+                _getLocatin()
+                },
                 child: Icon(Icons.my_location, color: Colors.black54),
                 shape: CircleBorder(),
                 color: Colors.white))

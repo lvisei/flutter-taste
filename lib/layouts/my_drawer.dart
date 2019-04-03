@@ -13,16 +13,20 @@ class MyDrawer extends StatelessWidget {
             child: Column(children: <Widget>[
           DrawerHeader(
               child: UserAccountsDrawerHeader(
-            accountName: Text("LiusfsfsDah"),
-            accountEmail: Text('LiusfsfsDah@foxmial.com'),
+                accountName: Text("liuvigongzuoshi"),
+                accountEmail: Text('liuvigongzuoshi@foxmial.com'),
             currentAccountPicture: ClipOval(
               child: Image(
-                  image: AssetImage("assets/images/avatar.png"), width: 60.0),
+                  image: AssetImage("assets/images/avatar.png"), width: 40.0),
             ),
           )),
           ListTile(
-            leading: const Icon(Icons.event_seat),
-            title: const Text('The seat for the narrator'),
+            leading: const Icon(Icons.child_care),
+            title: const Text('liuvigongzuoshi'),
+          ),
+          ListTile(
+            leading: const Icon(Icons.alternate_email),
+            title: const Text('liuvigongzuoshi@foxmial.com'),
           ),
         ])));
 

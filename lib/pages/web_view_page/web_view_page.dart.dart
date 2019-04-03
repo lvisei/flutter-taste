@@ -23,6 +23,10 @@ class _WebViewPageState extends State<WebViewPage> {
     });
   }
 
+  Future<Null> _onRefresh() async {
+    await flutterWebViewPlugin.reload();
+  }
+
   @override
   void dispose() {
     flutterWebViewPlugin.dispose();
@@ -36,14 +40,17 @@ class _WebViewPageState extends State<WebViewPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: WebviewScaffold(
-        url: widget.url,
-        withZoom: false,
-        withLocalStorage: true,
-        withJavascript: true,
-        supportMultipleWindows: true,
-        allowFileURLs: true,
-        geolocationEnabled: true,
+      body: RefreshIndicator(
+        onRefresh: _onRefresh,
+        child: WebviewScaffold(
+          url: widget.url,
+          withZoom: false,
+          withLocalStorage: true,
+          withJavascript: true,
+          supportMultipleWindows: true,
+          allowFileURLs: true,
+          geolocationEnabled: true,
+        ),
       ),
     );
   }

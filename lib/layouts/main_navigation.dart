@@ -16,6 +16,8 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
   var __currentPage;
+  var _lastTime;
+
   final List<BottomNavigationBarItem> bottomNavigationItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
     BottomNavigationBarItem(icon: Icon(Icons.map), title: Text('地图')),
@@ -23,7 +25,11 @@ class _MainNavigationState extends State<MainNavigation> {
     BottomNavigationBarItem(icon: Icon(Icons.face), title: Text('关于')),
   ];
   final List tabBodies = [
-    new HomePage(), new MapPage(), new CesiumPage(), new AboutPage()];
+    new HomePage(),
+    new MapPage(),
+    new CesiumPage(),
+    new AboutPage()
+  ];
 
   @override
   void initState() {
@@ -40,15 +46,54 @@ class _MainNavigationState extends State<MainNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: new Color.fromRGBO(244, 245, 245, 1.0),
-      bottomNavigationBar: new BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          fixedColor: Colors.blue,
-          currentIndex: _currentIndex,
-          items: bottomNavigationItems,
-          onTap: _onNavigationBarItemTapped),
-      body: __currentPage,
+    return WillPopScope(
+      child: new Scaffold(
+        backgroundColor: new Color.fromRGBO(244, 245, 245, 1.0),
+        bottomNavigationBar: new BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            fixedColor: Colors.blue,
+            currentIndex: _currentIndex,
+            items: bottomNavigationItems,
+            onTap: _onNavigationBarItemTapped),
+        body: __currentPage,
+      ),
+      onWillPop: () async {
+        if (_lastTime == null ||
+            DateTime.now().difference(_lastTime) >
+                Duration(milliseconds: 2000)) {
+          _lastTime = DateTime.now();
+          return false;
+        } else {
+          return showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('退出App'),
+                content: Text('确定不是手滑？'),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text(
+                      '取消',
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context, false);
+                    },
+                  ),
+                  FlatButton(
+                    child: Text(
+                      '退出',
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context, true);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        }
+      },
     );
   }
 }

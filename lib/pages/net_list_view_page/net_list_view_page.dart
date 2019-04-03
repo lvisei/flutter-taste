@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
 import 'package:flutter_demo_app/model/mock_list__item.dart';
 import 'package:flutter_demo_app/utils/net_utils.dart';
 
@@ -9,11 +8,24 @@ class NetListViewPage extends StatefulWidget {
 }
 
 class _NetListViewPageState extends State<NetListViewPage> {
-  final _suggestions = <WordPair>[];
-  final _saved = new Set<WordPair>();
-  final _biggerFont = const TextStyle(fontSize: 18.0);
+  List _userListData = new List();
+  final _saved = new Set<MockListItem>();
+  ScrollController _scrollController = new ScrollController();
+  bool isLoading = false;
 
-  Future<Map> getMockListData() async {
+  @override
+  void initState() {
+    super.initState();
+    _getMoreData();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getMoreData();
+      }
+    });
+  }
+
+  Future<Map> _getMockListData() async {
     const mockList =
         "https://easy-mock.com/mock/5be2f227033152564881d2e8/example/mock/view/list";
     var responseUserList = [];
@@ -31,8 +43,36 @@ class _NetListViewPageState extends State<NetListViewPage> {
         // No specified type, handles all
       }
     }
-    Map<String, dynamic> result = {"userList": userList};
+    Map<String, List> result = {"userList": userList};
     return result;
+  }
+
+  Future _getMoreData() async {
+    if (!isLoading) {
+      // 如果上一次异步请求数据完成 同时有数据可以加载
+      if (mounted) {
+        setState(() => isLoading = true);
+      }
+      List newUserList = (await _getMockListData())['userList'];
+      if (mounted) {
+        setState(() {
+          _userListData.addAll(newUserList);
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  Future<void> _onRefresh() async {
+    List newUserList = (await _getMockListData())['userList'];
+    if (mounted) {
+      setState(() {
+        _userListData.clear();
+        _userListData.addAll(newUserList);
+        isLoading = false;
+      });
+      return null;
+    }
   }
 
   void _pushSaved() {
@@ -40,12 +80,15 @@ class _NetListViewPageState extends State<NetListViewPage> {
       new MaterialPageRoute(
         builder: (context) {
           final tiles = _saved.map(
-            //数据
-            (pair) {
+                (user) {
               return new ListTile(
                 title: new Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
+                  user.name,
+                  style: TextStyle(fontSize: 18.0),
+                ),
+                trailing: Text(
+                  user.email,
+                  style: TextStyle(color: Colors.black54, fontSize: 10.0),
                 ),
               );
             },
@@ -57,7 +100,7 @@ class _NetListViewPageState extends State<NetListViewPage> {
 
           return new Scaffold(
             appBar: new AppBar(
-              title: new Text('Saved Suggestions'),
+              title: new Text('saved user name'),
             ),
             body: new ListView(children: divided),
           );
@@ -66,58 +109,93 @@ class _NetListViewPageState extends State<NetListViewPage> {
     );
   }
 
-  Widget _buildSuggestions() {
-    return new ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      // 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
-      // 在偶数行，该函数会为单词对添加一个ListTile row.
-      // 在奇数行，该函数会添加一个分割线widget，来分隔相邻的词对。
-      // 注意，在小屏幕上，分割线看起来可能比较吃力。
-      itemBuilder: (context, i) {
-        // 在每一列之前，添加一个1像素高的分隔线widget
-        if (i.isOdd) return new Divider();
+  Widget _buildProgressIndicator() {
+    if (isLoading) {
+      return Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              new Opacity(
+                opacity: isLoading ? 1.0 : 0.0,
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(Colors.blue),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                '数据疯狂加载中...',
+                style: TextStyle(fontSize: 14.0),
+              )
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Container(height: 40.0);
+    }
+  }
 
-        // 语法 "i ~/ 2" 表示i除以2，但返回值是整形（向下取整），比如i为：1, 2, 3, 4, 5
-        // 时，结果为0, 1, 1, 2, 2， 这可以计算出ListView中减去分隔线后的实际单词对数量
-        final index = i ~/ 2;
-        // 如果是建议列表中最后一个单词对
-        if (index >= _suggestions.length) {
-          // ...接着再生成10个单词对，然后添加到建议列表
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
-        return _buildRow(_suggestions[index]);
-      },
+  Widget _buildUserList() {
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: ListView.builder(
+        itemCount: _userListData.length + 1,
+        padding: const EdgeInsets.all(16.0),
+        itemBuilder: (context, index) {
+          if (index == _userListData.length) {
+            return _buildProgressIndicator();
+          } else {
+            return _buildUserItem(_userListData[index]);
+          }
+        },
+        controller: _scrollController,
+      ),
     );
   }
 
-  Widget _buildRow(WordPair pair) {
-    final alreadySaved = _saved.contains(pair);
-
-    return new ListTile(
-      title: new Text(
-        pair.asPascalCase,
-        style: _biggerFont,
+  Widget _buildUserItem(MockListItem user) {
+    final alreadySaved = _saved.contains(user);
+    return Card(
+      color: Colors.white,
+      elevation: 0.8,
+      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      child: ListTile(
+        onTap: () {
+          setState(() {
+            alreadySaved ? _saved.remove(user) : _saved.add(user);
+          });
+        },
+        title: Padding(
+          child: Text(
+            user.name,
+            style: TextStyle(color: Colors.black, fontSize: 15.0),
+          ),
+          padding: EdgeInsets.only(top: 10.0),
+        ),
+        subtitle: Row(
+          children: <Widget>[
+            Padding(
+              child: Text(
+                user.email,
+                style: TextStyle(color: Colors.black54, fontSize: 10.0),
+              ),
+              padding: EdgeInsets.only(top: 10.0, bottom: 10.0),
+            )
+          ],
+        ),
+        trailing: new Icon(
+          alreadySaved ? Icons.favorite : Icons.favorite_border,
+          color: alreadySaved ? Colors.red : null,
+        ),
       ),
-      trailing: new Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      body: _buildSuggestions(),
+      body: _buildUserList(),
       floatingActionButton: FloatingActionButton(
         onPressed: _pushSaved,
         tooltip: 'Saved Suggestions',

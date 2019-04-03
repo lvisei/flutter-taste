@@ -3,6 +3,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_demo_app/pages/test_pege/test_pege.dart';
 import 'package:flutter_demo_app/pages/list_view_page/list_view_page.dart';
 import 'package:flutter_demo_app/layouts/my_drawer.dart';
+import 'package:flutter_demo_app/pages/custom_paint_page/custom_paint_page.dart';
+import 'package:flutter_demo_app/pages/net_list_view_page/net_list_view_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -15,10 +17,10 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   String _title = 'Home Page';
   TabController _tabController;
-  List tabs = ["列表", "测试"];
+  List tabs = ["列表", "网络", "绘制", "测试"];
 
   _launchURL() async {
-    var url = 'https://liuvigongzuoshi.github.io/cesium-react/index.html';
+    var url = 'https://github.com/liuvigongzuoshi/flutter-demo';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -62,7 +64,12 @@ class _HomePageState extends State<HomePage>
       drawer: new MyDrawer(),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[ListViewPage(), TestPage()],
+        children: <Widget>[
+          ListViewPage(),
+          NetListViewPage(),
+          CustomPaintPage(),
+          TestPage()
+        ],
       ),
     );
   }

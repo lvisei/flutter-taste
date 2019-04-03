@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:flutter/services.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CesiumPage extends StatefulWidget {
   const CesiumPage({Key key}) : super(key: key);
@@ -9,48 +11,71 @@ class CesiumPage extends StatefulWidget {
 }
 
 class _CesiumPageState extends State<CesiumPage> {
-  final flutterWebViewPlugin = new FlutterWebviewPlugin();
   String url = 'https://liuvigongzuoshi.github.io/cesium-react';
   String url2 = 'https://threejs.org/examples/#webgl_geometry_minecraft_ao';
+  bool hasLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    flutterWebViewPlugin.onStateChanged.listen((state) {
-      print("------------------");
-      print(state);
-      print("------------------");
-    });
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.landscapeRight,
+      DeviceOrientation.landscapeRight,
+    ]);
+  }
+
+  _launchURL() async {
+    var url = 'https://github.com/liuvigongzuoshi/flutter-demo';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
   void dispose() {
-    flutterWebViewPlugin.dispose();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text("Cesium Demo"),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.share), onPressed: null),
+          IconButton(icon: Icon(Icons.share), onPressed: _launchURL),
         ],
       ),
-      url: url,
-      withLocalStorage: true,
-      withJavascript: true,
-      withZoom: false,
-      hidden: true,
-      supportMultipleWindows: true,
-      allowFileURLs: true,
-      geolocationEnabled: true,
-//      initialChild: Container(
-//        child: const Center(
-//          child: Text('Waiting.....', style: TextStyle(color: Colors.blue)),
-//        ),
-//      ),
+      body: WebView(
+        initialUrl: url,
+        javascriptMode: JavascriptMode.unrestricted,
+        onPageFinished: (String url) =>
+        {
+        setState(() {
+          hasLoaded = true;
+        })
+        },
+      ),
     );
+//    return WebviewScaffold(
+//      appBar: AppBar(
+//        title: Text("Cesium Demo"),
+//        actions: <Widget>[
+//          IconButton(icon: Icon(Icons.share), onPressed: null),
+//        ],
+//      ),
+//      url: url,
+//      withLocalStorage: true,
+//      withJavascript: true,
+//      withZoom: false,
+//      hidden: true,
+//      supportMultipleWindows: true,
+//      allowFileURLs: true,
+//      geolocationEnabled: true,
+//    );
   }
 }

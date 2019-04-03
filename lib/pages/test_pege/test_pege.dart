@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_demo_app/utils/shared_preferences.dart';
 
 class TestPage extends StatefulWidget {
@@ -44,24 +43,8 @@ class _TestPageState extends State<TestPage> {
             onPressed: _incrementCounter,
             child: Text('Increment'),
           ),
-          RaisedButton(
-            onPressed: getHttp,
-            child: Icon(Icons.add, color: Colors.white),
-            shape: CircleBorder(),
-            color: Colors.blue,
-          ),
         ],
       ),
     );
-  }
-}
-
-void getHttp() async {
-  try {
-    Response response = await Dio().get(
-        "https://easy-mock.com/mock/5be2f227033152564881d2e8/example/mock/view/list");
-    print(response);
-  } catch (e) {
-    print(e);
   }
 }
