@@ -24,6 +24,12 @@ class _CesiumPageState extends State<CesiumPage> {
   }
 
   @override
+  void dispose() {
+    flutterWebViewPlugin.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WebviewScaffold(
       appBar: AppBar(
@@ -40,11 +46,11 @@ class _CesiumPageState extends State<CesiumPage> {
       supportMultipleWindows: true,
       allowFileURLs: true,
       geolocationEnabled: true,
-      initialChild: Container(
-        child: const Center(
-          child: Text('Waiting.....', style: TextStyle(color: Colors.blue)),
-        ),
-      ),
+//      initialChild: Container(
+//        child: const Center(
+//          child: Text('Waiting.....', style: TextStyle(color: Colors.blue)),
+//        ),
+//      ),
     );
   }
 }

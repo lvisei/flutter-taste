@@ -58,7 +58,8 @@ class _TestPageState extends State<TestPage> {
 
 void getHttp() async {
   try {
-    Response response = await Dio().get("https://www.baidu.com");
+    Response response = await Dio().get(
+        "https://easy-mock.com/mock/5be2f227033152564881d2e8/example/mock/view/list");
     print(response);
   } catch (e) {
     print(e);

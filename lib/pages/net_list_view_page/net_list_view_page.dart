@@ -1,26 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
+import 'package:flutter_demo_app/model/mock_list__item.dart';
+import 'package:flutter_demo_app/utils/net_utils.dart';
 
-class ListViewPage extends StatefulWidget {
+class NetListViewPage extends StatefulWidget {
   @override
-  _ListViewPageState createState() => _ListViewPageState();
+  _NetListViewPageState createState() => _NetListViewPageState();
 }
 
-class _ListViewPageState extends State<ListViewPage> {
+class _NetListViewPageState extends State<NetListViewPage> {
   final _suggestions = <WordPair>[];
   final _saved = new Set<WordPair>();
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-      body: _buildSuggestions(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _pushSaved,
-        tooltip: 'Saved Suggestions',
-        child: Icon(Icons.list),
-      ),
-    );
+  Future<Map> getMockListData() async {
+    const mockList =
+        "https://easy-mock.com/mock/5be2f227033152564881d2e8/example/mock/view/list";
+    var responseUserList = [];
+
+    try {
+      var response = await NetUtils.get(mockList);
+      responseUserList = response['data']['userList'];
+    } catch (e) {}
+    List userList = new List();
+    for (int i = 0; i < responseUserList.length; i++) {
+      try {
+        MockListItem cellData = new MockListItem.fromJson(responseUserList[i]);
+        userList.add(cellData);
+      } catch (e) {
+        // No specified type, handles all
+      }
+    }
+    Map<String, dynamic> result = {"userList": userList};
+    return result;
   }
 
   void _pushSaved() {
@@ -99,6 +111,18 @@ class _ListViewPageState extends State<ListViewPage> {
           }
         });
       },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return new Scaffold(
+      body: _buildSuggestions(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _pushSaved,
+        tooltip: 'Saved Suggestions',
+        child: Icon(Icons.list),
+      ),
     );
   }
 }

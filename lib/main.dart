@@ -9,9 +9,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-//          accentColor: Colors.grey[50], //次级色，决定大多数Widget的颜色，如进度条、开关等
-//          backgroundColor: Color(0xFFFFFFFF),
-          primarySwatch: Colors.blue, // 主色，决定导航栏颜色
+          primarySwatch: Colors.blue,
+          // 主色，决定导航栏颜色
           primaryColor: Colors.grey[50],
           // 主题颜色样本
           scaffoldBackgroundColor: Colors.grey[50],
@@ -28,6 +27,8 @@ class MyApp extends StatelessWidget {
           bottomAppBarTheme: BottomAppBarTheme(
             elevation: 1.0,
           ),
+//          accentColor: Colors.grey[50], //次级色，决定大多数Widget的颜色，如进度条、开关等
+//          backgroundColor: Color(0xFFFFFFFF),
         ),
         home: MainNavigation(),
         onGenerateRoute: null);

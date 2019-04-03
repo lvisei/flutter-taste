@@ -24,6 +24,12 @@ class _WebViewPageState extends State<WebViewPage> {
   }
 
   @override
+  void dispose() {
+    flutterWebViewPlugin.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
