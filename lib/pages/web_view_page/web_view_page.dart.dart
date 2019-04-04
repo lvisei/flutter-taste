@@ -24,6 +24,10 @@ class _WebViewPageState extends State<WebViewPage> {
   }
 
   Future<Null> _onRefresh() async {
+    Scaffold.of(context).showSnackBar(new SnackBar(
+        content: Text("刷新中"),
+        duration: new Duration(seconds: 1),
+        backgroundColor: Color.fromARGB(0, 0, 0, 0)));
     await flutterWebViewPlugin.reload();
   }
 
@@ -35,21 +39,24 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _onRefresh,
-        child: WebviewScaffold(
-          url: widget.url,
-          withZoom: false,
-          withLocalStorage: true,
-          withJavascript: true,
-          supportMultipleWindows: true,
-          allowFileURLs: true,
-          geolocationEnabled: true,
+    return RefreshIndicator(
+      onRefresh: _onRefresh,
+      child: Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: RefreshIndicator(
+          onRefresh: _onRefresh,
+          child: WebviewScaffold(
+            url: widget.url,
+            withZoom: false,
+            withLocalStorage: true,
+            withJavascript: true,
+            supportMultipleWindows: true,
+            allowFileURLs: true,
+            geolocationEnabled: true,
+          ),
         ),
       ),
     );

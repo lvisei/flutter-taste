@@ -100,7 +100,7 @@ class _NetListViewPageState extends State<NetListViewPage> {
 
           return new Scaffold(
             appBar: new AppBar(
-              title: new Text('saved user name'),
+              title: new Text('已保存用户'),
             ),
             body: new ListView(children: divided),
           );

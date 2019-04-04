@@ -9,7 +9,7 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   String url = 'https://github.com/liuvigongzuoshi/flutter-demo';
   String juejing = 'https://juejin.im/timeline';
-  String title = 'An initial taste of the Flutter project';
+  String title = 'About Demo';
 
   @override
   Widget build(BuildContext context) {

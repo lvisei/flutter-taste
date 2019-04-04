@@ -33,7 +33,7 @@ class _ListViewPageState extends State<ListViewPage> {
 
           return new Scaffold(
             appBar: new AppBar(
-              title: new Text('Saved Suggestions'),
+              title: new Text('已保存列表'),
             ),
             body: new ListView(children: divided),
           );
@@ -54,17 +54,16 @@ class _ListViewPageState extends State<ListViewPage> {
         if (index >= _suggestions.length) {
           _suggestions.addAll(generateWordPairs().take(20));
         }
-        return _buildRow(_suggestions[index]);
+        return _buildRow(_suggestions[index], index);
       },
     );
   }
 
-  Widget _buildRow(WordPair pair) {
+  Widget _buildRow(WordPair pair, int index) {
     final alreadySaved = _saved.contains(pair);
-
     return new ListTile(
       title: new Text(
-        pair.asPascalCase,
+        '$index : $pair.asPascalCase',
         style: _biggerFont,
       ),
       trailing: new Icon(

@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  String _title = 'Home Page';
+  String _title = '首页';
   TabController _tabController;
   List tabs = ["列表", "网络", "绘制", "测试"];
 

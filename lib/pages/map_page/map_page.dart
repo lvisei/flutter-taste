@@ -37,6 +37,7 @@ class _MapPageState extends State<MapPage> {
     if (position == null) {
       _showSnackBar(new Text('location erro'));
     } else {
+      _showSnackBar(new Text('$position'));
       mapController.move(LatLng(position.latitude, position.longitude), 12);
     }
   }

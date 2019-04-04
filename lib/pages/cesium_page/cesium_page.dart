@@ -11,21 +11,22 @@ class CesiumPage extends StatefulWidget {
 }
 
 class _CesiumPageState extends State<CesiumPage> {
-  String url = 'https://liuvigongzuoshi.github.io/cesium-react';
-  String url2 = 'https://threejs.org/examples/#webgl_geometry_minecraft_ao';
+  String url = 'https://liuvigongzuoshi.gitee.io/cesium-react';
+  String url1 = 'https://threejs.org/examples/#webgl_geometry_minecraft_ao';
+  String url2 = 'http://ywbang.top/';
   bool hasLoaded = false;
 
   @override
   void initState() {
     super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeRight,
-      DeviceOrientation.landscapeRight,
-    ]);
+//    SystemChrome.setPreferredOrientations([
+//      DeviceOrientation.landscapeRight,
+//      DeviceOrientation.landscapeRight,
+//    ]);
   }
 
   _launchURL() async {
-    var url = 'https://github.com/liuvigongzuoshi/flutter-demo';
+    var url = 'https://liuvigongzuoshi.github.io/cesium-react';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -35,30 +36,38 @@ class _CesiumPageState extends State<CesiumPage> {
 
   @override
   void dispose() {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
+//    SystemChrome.setPreferredOrientations([
+//      DeviceOrientation.portraitUp,
+//    ]);
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    double statusBarHeight =
+        MediaQueryData
+            .fromWindow(WidgetsBinding.instance.window)
+            .padding
+            .top;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Cesium Demo"),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.share), onPressed: _launchURL),
-        ],
-      ),
-      body: WebView(
-        initialUrl: url,
-        javascriptMode: JavascriptMode.unrestricted,
-        onPageFinished: (String url) =>
-        {
-        setState(() {
-          hasLoaded = true;
-        })
-        },
+//      appBar: AppBar(
+//        title: Text("Cesium Demo"),
+//        actions: <Widget>[
+//          IconButton(icon: Icon(Icons.share), onPressed: _launchURL),
+//        ],
+//      ),
+      body: Container(
+        padding: EdgeInsets.only(top: statusBarHeight),
+        child: WebView(
+          initialUrl: url,
+          javascriptMode: JavascriptMode.unrestricted,
+          onPageFinished: (String url) =>
+          {
+          setState(() {
+            hasLoaded = true;
+          })
+          },
+        ),
       ),
     );
 //    return WebviewScaffold(
