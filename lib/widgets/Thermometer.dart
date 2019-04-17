@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class Thermometer extends StatefulWidget {
   final double width;
+  final double height;
   final double degree;
   final double maxDegree;
   final double minDegree;
@@ -10,6 +11,7 @@ class Thermometer extends StatefulWidget {
   const Thermometer(
       {Key key,
       @required this.width,
+        @required this.height,
       this.degree,
       this.maxDegree,
       this.minDegree})
@@ -52,7 +54,7 @@ class ThermometerState extends State<Thermometer>
     return CustomPaint(
       painter: ThermometerPainter(
           width: widget.width, degree: widget.degree * _fraction),
-      size: Size(widget.width, widget.width),
+      size: Size(widget.width, widget.height),
     );
   }
 }

@@ -5,7 +5,7 @@ An initial taste of the Flutter project
 
 packages name | Features
 ---|---
-shared_preferences | 本地数据缓存
+shared_preferences | App KV存储功能
 url_launcher | 启动外部浏览器
 flutter_map | 基于Leaflet地图插件
 dio | 网络请求
@@ -15,3 +15,4 @@ geolocator | 定位
 share | 系统分享
 cached_network_image | 图片加载缓存（sqflite）
 fluttertoast | toast
+flutter_svg | 使用svg图标

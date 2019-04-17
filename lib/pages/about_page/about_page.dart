@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' show ImageFilter;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_demo_app/pages/web_view_page/web_view_page.dart.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_demo_app/utils/screen_utils.dart';
@@ -15,7 +17,7 @@ class AboutPage extends StatefulWidget {
 
 class _AboutPageState extends State<AboutPage> {
   String avatarUrl = ServerUrl.avatarUrl;
-  String avatarBgUrl = ServerUrl.avatarBgUrl02;
+  String avatarBgUrl = ServerUrl.avatarBgUrl03;
 
   @override
   Widget build(BuildContext context) {
@@ -29,11 +31,30 @@ class _AboutPageState extends State<AboutPage> {
             padding: EdgeInsets.only(top: 0),
             children: <Widget>[
               _buildHeader(),
-              _buildItem('assets/svg/mark-github.svg', '项目地址', _openGithub),
-              _buildItem('assets/svg/octoface.svg', 'React Resium 🌏',
-                  _openCesium),
-              _buildItem('assets/svg/juejin.svg', '掘金社区', _openJuejin),
-              _buildItem('assets/svg/mail.svg', '邮箱', _copyMyEmail),
+              _buildItem(
+                'assets/svg/mark-github.svg',
+                Colors.black,
+                '项目地址',
+                _openGithub,
+              ),
+              _buildItem(
+                'assets/svg/octoface.svg',
+                Colors.black,
+                'React Resium 🌏',
+                _openCesium,
+              ),
+              _buildItem(
+                'assets/svg/juejin.svg',
+                Colors.blue,
+                '掘金社区',
+                _openJuejin,
+              ),
+              _buildItem(
+                'assets/svg/mail.svg',
+                Colors.blueGrey,
+                '邮箱',
+                _copyMyEmail,
+              ),
             ],
           )),
     );
@@ -42,25 +63,13 @@ class _AboutPageState extends State<AboutPage> {
   _openGithub() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (BuildContext context) =>
+      PageRouteBuilder(
+        pageBuilder: (BuildContext context, _, __) =>
             WebViewPage(
               url: 'https://github.com/liuvigongzuoshi/flutter-demo',
               title: 'About Demo',
             ),
-      ),
-    );
-  }
-
-  _openJuejin() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (BuildContext context) =>
-            WebViewPage(
-              url: 'https://github.com/liuvigongzuoshi/cesium-react',
-              title: 'cesium-react',
-            ),
+        transitionDuration: const Duration(milliseconds: 100),
       ),
     );
   }
@@ -68,22 +77,37 @@ class _AboutPageState extends State<AboutPage> {
   _openCesium() {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (BuildContext context) =>
+      PageRouteBuilder(
+        pageBuilder: (BuildContext context, _, __) =>
+            WebViewPage(
+              url: 'https://github.com/liuvigongzuoshi/cesium-react',
+              title: 'cesium-react',
+            ),
+        transitionDuration: const Duration(milliseconds: 100),
+      ),
+    );
+  }
+
+  _openJuejin() {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (BuildContext context, _, __) =>
             WebViewPage(
               url: 'https://juejin.im/tag/Flutter',
               title: 'Juejin Flutter',
             ),
+        transitionDuration: const Duration(milliseconds: 100),
       ),
     );
   }
 
   _copyMyEmail() {
     Clipboard.setData(ClipboardData(text: 'liuvigongzuoshi@foxmail.com'));
-    Fluttertoast.showToast(msg: '已复制邮箱');
+    Fluttertoast.showToast(msg: '已复制邮箱地址');
   }
 
-  Widget _buildItem(String icon, String text, onTap) {
+  Widget _buildItem(String icon, Color color, String text, onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -100,11 +124,13 @@ class _AboutPageState extends State<AboutPage> {
           children: <Widget>[
             Row(
               children: <Widget>[
-                Image.asset(
-                  icon,
-                  fit: BoxFit.cover,
-                  height: 30,
-                  width: 30,
+                SizedBox(
+                  width: 20.0,
+                  height: 20.0,
+                  child: SvgPicture.asset(
+                    icon,
+                    color: color,
+                  ),
                 ),
                 SizedBox(
                   width: 20,
@@ -115,7 +141,7 @@ class _AboutPageState extends State<AboutPage> {
                 )
               ],
             ),
-            Icon(Icons.keyboard_arrow_right)
+            Icon(CupertinoIcons.forward)
           ],
         ),
       ),
@@ -145,7 +171,7 @@ class _AboutPageState extends State<AboutPage> {
             ),
           ),
           BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+            filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
             child: Container(
               width: ScreenUtils.width,
               height: height,

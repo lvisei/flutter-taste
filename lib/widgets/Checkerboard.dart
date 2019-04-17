@@ -6,7 +6,7 @@ class Checkerboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: CustomPaint(
-        size: Size(400, 400), //指定画布大小
+        size: Size(300, 300), //指定画布大小
         painter: _MyPainter(),
       ),
     );

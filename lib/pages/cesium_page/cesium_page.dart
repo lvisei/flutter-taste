@@ -33,12 +33,6 @@ class _CesiumPageState extends State<CesiumPage> {
             .padding
             .top;
     return Scaffold(
-//      appBar: AppBar(
-//        title: Text("Cesium Demo"),
-//        actions: <Widget>[
-//          IconButton(icon: Icon(CupertinoIcons.share_up), onPressed: _launchURL),
-//        ],
-//      ),
       body: Container(
         padding: EdgeInsets.only(top: statusBarHeight),
         child: WebView(
@@ -53,21 +47,21 @@ class _CesiumPageState extends State<CesiumPage> {
         ),
       ),
     );
-//    return WebviewScaffold(
-//      appBar: AppBar(
-//        title: Text("Cesium Demo"),
-//        actions: <Widget>[
-//          IconButton(icon: Icon(CupertinoIcons.share), onPressed: null),
-//        ],
-//      ),
-//      url: url,
-//      withLocalStorage: true,
-//      withJavascript: true,
-//      withZoom: false,
-//      hidden: true,
-//      supportMultipleWindows: true,
-//      allowFileURLs: true,
-//      geolocationEnabled: true,
-//    );
+    /*return WebviewScaffold(
+      appBar: AppBar(
+        title: Text("Cesium Demo"),
+        actions: <Widget>[
+          IconButton(icon: Icon(CupertinoIcons.share), onPressed: null),
+        ],
+      ),
+      url: url,
+      withLocalStorage: true,
+      withJavascript: true,
+      withZoom: false,
+      hidden: true,
+      supportMultipleWindows: true,
+      allowFileURLs: true,
+      geolocationEnabled: true,
+    );*/
   }
 }

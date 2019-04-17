@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_app/shared/constants.dart';
 
@@ -41,11 +42,11 @@ class MyDrawer extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   ListTile(
-                    leading: const Icon(Icons.child_care),
+                    leading: const Icon(CupertinoIcons.tag),
                     title: const Text('liuvigongzuoshi'),
                   ),
                   ListTile(
-                    leading: const Icon(Icons.alternate_email),
+                    leading: const Icon(CupertinoIcons.mail),
                     title: const Text('liuvigongzuoshi@foxmial.com'),
                   ),
                 ],

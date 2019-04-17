@@ -20,4 +20,5 @@ class ServerUrl {
   static const String avatarUrl = 'https://s2.ax1x.com/2019/04/17/AzuiND.jpg';
   static const String avatarBgUrl01 = 'https://s2.ax1x.com/2019/04/17/AzQmuR.jpg';
   static const String avatarBgUrl02 = 'https://s2.ax1x.com/2019/04/17/AzQcKs.jpg';
+  static const String avatarBgUrl03 = 'https://s2.ax1x.com/2019/04/18/ESS9at.jpg';
 }

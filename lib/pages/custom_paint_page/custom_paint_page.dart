@@ -12,15 +12,16 @@ class CustomPaintPage extends StatelessWidget {
         padding: EdgeInsets.only(top: 30, bottom: 30),
         child: Center(
           child: Column(children: <Widget>[
-            Container(height: 20),
+            Container(height: 40),
             Clock(),
-            Container(height: 20),
+            Container(height: 40),
             Checkerboard(),
-            Container(height: 20),
+            Container(height: 40),
             GradientCircularProgress(),
             Container(height: 40),
             Thermometer(
               width: 300,
+              height: 100,
               degree: 50,
             ),
           ]),
