@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
@@ -15,20 +17,28 @@ class _WebViewPageState extends State<WebViewPage> {
   bool hasLoaded = false;
   final flutterWebViewPlugin = new FlutterWebviewPlugin();
 
-  @override
-  void initState() {
-    super.initState();
-    flutterWebViewPlugin.onStateChanged.listen((state) {
-      print(state);
-    });
-  }
-
   Future<Null> _onRefresh() async {
     Scaffold.of(context).showSnackBar(new SnackBar(
         content: Text("刷新中"),
         duration: new Duration(seconds: 1),
         backgroundColor: Color.fromARGB(0, 0, 0, 0)));
     await flutterWebViewPlugin.reload();
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    flutterWebViewPlugin.onStateChanged.listen((state) {
+      print(state);
+    });
   }
 
   @override
@@ -45,6 +55,12 @@ class _WebViewPageState extends State<WebViewPage> {
         key: _scaffoldKey,
         appBar: AppBar(
           title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(CupertinoIcons.share_up),
+              onPressed: _launchURL(widget.url),
+            )
+          ],
         ),
         body: RefreshIndicator(
           onRefresh: _onRefresh,
@@ -108,7 +124,7 @@ class _WebViewExampleState extends State<WebViewExample> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.navigate_next),
-            onPressed: () => launchUrl(),
+            onPressed: launchUrl,
           )
         ],
       ),

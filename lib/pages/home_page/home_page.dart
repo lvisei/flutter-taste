@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 import 'package:flutter_demo_app/pages/test_pege/test_pege.dart';
 import 'package:flutter_demo_app/pages/list_view_page/list_view_page.dart';
 import 'package:flutter_demo_app/layouts/my_drawer.dart';
@@ -18,14 +19,10 @@ class _HomePageState extends State<HomePage>
   String _title = '首页';
   TabController _tabController;
   List tabs = ["列表", "网络", "绘制", "测试"];
+  String url = 'https://github.com/liuvigongzuoshi/flutter-demo';
 
-  _launchURL() async {
-    var url = 'https://github.com/liuvigongzuoshi/flutter-demo';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  _shareURL(String url) {
+    Share.share(url);
   }
 
   @override
@@ -47,14 +44,15 @@ class _HomePageState extends State<HomePage>
         title: Text(_title),
         leading: Builder(builder: (context) {
           return IconButton(
-            icon: Icon(Icons.apps),
+            icon: Icon(CupertinoIcons.person_solid),
             onPressed: () {
               Scaffold.of(context).openDrawer();
             },
           );
         }),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.share), onPressed: _launchURL),
+          IconButton(
+              icon: Icon(CupertinoIcons.share), onPressed: _shareURL(url)),
         ],
         bottom: TabBar(
           controller: _tabController,

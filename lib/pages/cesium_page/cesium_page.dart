@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,10 +19,6 @@ class _CesiumPageState extends State<CesiumPage> {
   @override
   void initState() {
     super.initState();
-//    SystemChrome.setPreferredOrientations([
-//      DeviceOrientation.landscapeRight,
-//      DeviceOrientation.landscapeRight,
-//    ]);
   }
 
   _launchURL() async {
@@ -36,9 +32,6 @@ class _CesiumPageState extends State<CesiumPage> {
 
   @override
   void dispose() {
-//    SystemChrome.setPreferredOrientations([
-//      DeviceOrientation.portraitUp,
-//    ]);
     super.dispose();
   }
 
@@ -53,7 +46,7 @@ class _CesiumPageState extends State<CesiumPage> {
 //      appBar: AppBar(
 //        title: Text("Cesium Demo"),
 //        actions: <Widget>[
-//          IconButton(icon: Icon(Icons.share), onPressed: _launchURL),
+//          IconButton(icon: Icon(CupertinoIcons.share_up), onPressed: _launchURL),
 //        ],
 //      ),
       body: Container(
@@ -74,7 +67,7 @@ class _CesiumPageState extends State<CesiumPage> {
 //      appBar: AppBar(
 //        title: Text("Cesium Demo"),
 //        actions: <Widget>[
-//          IconButton(icon: Icon(Icons.share), onPressed: null),
+//          IconButton(icon: Icon(CupertinoIcons.share), onPressed: null),
 //        ],
 //      ),
 //      url: url,

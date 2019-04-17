@@ -12,3 +12,4 @@ dio | 网络请求
 flutter_webview_plugin | 全屏的webview
 webview_flutter | 官方的webview
 geolocator | 定位
+share | 分享

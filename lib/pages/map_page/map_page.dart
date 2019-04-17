@@ -17,6 +17,20 @@ class _MapPageState extends State<MapPage> {
   static LatLng taiwan = new LatLng(24.137639, 120.691316);
   static LatLng xian = new LatLng(34.269985, 108.942833);
 
+  List<Marker> locationmMrkers = <Marker>[
+    new Marker(
+      width: 80.0,
+      height: 80.0,
+      point: beijing,
+      builder: (ctx) =>
+      new Container(
+        child: Container(
+          child: new FlutterLogo(colors: Colors.red),
+        ),
+      ),
+    )
+  ];
+
   MapController mapController;
 
   void initState() {
@@ -37,6 +51,7 @@ class _MapPageState extends State<MapPage> {
     if (position == null) {
       _showSnackBar(new Text('location erro'));
     } else {
+      print(position);
       _showSnackBar(new Text('$position'));
       mapController.move(LatLng(position.latitude, position.longitude), 12);
     }
@@ -44,23 +59,24 @@ class _MapPageState extends State<MapPage> {
 
   @override
   Widget build(BuildContext context) {
-    var markers = <Marker>[
+    List<Marker> markers = <Marker>[
       new Marker(
         width: 80.0,
         height: 80.0,
         point: beijing,
         builder: (ctx) => new Container(
-                child: new GestureDetector(
-              onTap: () {
-                _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
-              },
-              child: Container(
-                child: new FlutterLogo(colors: Colors.red),
-              ),
-            )),
+          child: new GestureDetector(
+            onTap: () {
+              _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
+            },
+            child: Container(
+              child: new FlutterLogo(colors: Colors.red),
+            ),
+          ),
+        ),
       )
     ];
-    var circleMarkers = <CircleMarker>[
+    List<CircleMarker> circleMarkers = <CircleMarker>[
       new CircleMarker(
           point: chengdu,
           color: Colors.green,
@@ -78,14 +94,14 @@ class _MapPageState extends State<MapPage> {
           radius: 1000 // 1000 meters | 1 km
           ),
     ];
-    var polylines = <Polyline>[
+    List<Polyline> polylines = <Polyline>[
       new Polyline(
           points: [beijing, chengdu, taiwan],
           strokeWidth: 4.0,
           color: Colors.redAccent,
           isDotted: true)
     ];
-    var polygons = <Polygon>[
+    List<Polygon> polygons = <Polygon>[
       new Polygon(
           points: [
             new LatLng(35.916846, 108.391220),
@@ -106,7 +122,6 @@ class _MapPageState extends State<MapPage> {
             .fromWindow(WidgetsBinding.instance.window)
             .padding
             .top;
-    print(statusBarHeight);
 
     return Stack(
       children: <Widget>[
@@ -135,7 +150,6 @@ class _MapPageState extends State<MapPage> {
               new RaisedButton(
                 color: Colors.white,
                 child: new Text("beijing"),
-//                shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(3.0)),
                 padding: const EdgeInsets.all(0.0),
                 onPressed: () {
                   mapController.move(beijing, 18.0);
@@ -200,10 +214,7 @@ class _MapPageState extends State<MapPage> {
             bottom: 18.0,
             right: 0.0,
             child: RaisedButton(
-                onPressed: () =>
-                {
-                _getLocatin()
-                },
+                onPressed: _getLocatin,
                 child: Icon(Icons.my_location, color: Colors.black54),
                 shape: CircleBorder(),
                 color: Colors.white))
