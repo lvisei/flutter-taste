@@ -15,3 +15,9 @@ class TdtMapUrl {
   static const String ibo_w =
       "http://t0.tianditu.gov.cn/ibo_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=ibo&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=$code";
 }
+
+class ServerUrl {
+  static const String avatarUrl = 'https://s2.ax1x.com/2019/04/17/AzuiND.jpg';
+  static const String avatarBgUrl01 = 'https://s2.ax1x.com/2019/04/17/AzQmuR.jpg';
+  static const String avatarBgUrl02 = 'https://s2.ax1x.com/2019/04/17/AzQcKs.jpg';
+}

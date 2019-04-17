@@ -7,7 +7,7 @@ class WebViewPage extends StatefulWidget {
   final String url;
   final String title;
 
-  WebViewPage(this.url, this.title);
+  WebViewPage({@required this.url, this.title});
 
   _WebViewPageState createState() => _WebViewPageState();
 }
@@ -58,7 +58,7 @@ class _WebViewPageState extends State<WebViewPage> {
           actions: <Widget>[
             IconButton(
               icon: Icon(CupertinoIcons.share_up),
-              onPressed: _launchURL(widget.url),
+              onPressed: () => _launchURL(widget.url),
             )
           ],
         ),

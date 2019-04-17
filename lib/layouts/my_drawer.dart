@@ -1,39 +1,16 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_demo_app/shared/constants.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
     Key key,
   }) : super(key: key);
 
+  final avatarUrl = ServerUrl.avatarUrl;
+
   @override
   Widget build(BuildContext context) {
-//    return Theme(
-//      data: Theme.of(context).copyWith(primaryColor: Colors.grey[50]),
-//      child: Drawer(
-//        child: Column(
-//          children: <Widget>[
-//            DrawerHeader(
-//                child: UserAccountsDrawerHeader(
-//              accountName: Text("liuvigongzuoshi"),
-//              accountEmail: Text('liuvigongzuoshi@foxmial.com'),
-//              currentAccountPicture: ClipOval(
-//                child: Image(
-//                    image: AssetImage("assets/images/avatar.png"), width: 40.0),
-//              ),
-//            )),
-//            ListTile(
-//              leading: const Icon(Icons.child_care),
-//              title: const Text('liuvigongzuoshi'),
-//            ),
-//            ListTile(
-//              leading: const Icon(Icons.alternate_email),
-//              title: const Text('liuvigongzuoshi@foxmial.com'),
-//            ),
-//          ],
-//        ),
-//      ),
-//    );
-
     return Drawer(
       child: MediaQuery.removePadding(
         context: context,
@@ -47,10 +24,9 @@ class MyDrawer extends StatelessWidget {
                 children: <Widget>[
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 26.0),
-                    child: ClipOval(
-                      child: Image(
-                          image: AssetImage("assets/images/avatar.png"),
-                          width: 60.0),
+                    child: CircleAvatar(
+                      backgroundImage: CachedNetworkImageProvider(avatarUrl),
+                      radius: 50.0,
                     ),
                   ),
                   Text(

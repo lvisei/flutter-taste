@@ -44,15 +44,14 @@ class _HomePageState extends State<HomePage>
         title: Text(_title),
         leading: Builder(builder: (context) {
           return IconButton(
-            icon: Icon(CupertinoIcons.person_solid),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+            icon: Icon(Icons.apps),
+            onPressed: () => Scaffold.of(context).openDrawer(),
           );
         }),
         actions: <Widget>[
           IconButton(
-              icon: Icon(CupertinoIcons.share), onPressed: _shareURL(url)),
+              icon: Icon(CupertinoIcons.share),
+              onPressed: () => _shareURL(url)),
         ],
         bottom: TabBar(
           controller: _tabController,

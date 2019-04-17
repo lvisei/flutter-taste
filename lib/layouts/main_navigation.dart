@@ -76,17 +76,13 @@ class _MainNavigationState extends State<MainNavigation> {
                     child: Text(
                       '取消',
                     ),
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
+                    onPressed: () => Navigator.pop(context, false),
                   ),
                   FlatButton(
                     child: Text(
                       '退出',
                     ),
-                    onPressed: () {
-                      Navigator.pop(context, true);
-                    },
+                    onPressed: () => Navigator.pop(context, true),
                   ),
                 ],
               );

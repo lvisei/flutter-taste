@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class CesiumPage extends StatefulWidget {
   const CesiumPage({Key key}) : super(key: key);
@@ -19,15 +18,6 @@ class _CesiumPageState extends State<CesiumPage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  _launchURL() async {
-    var url = 'https://liuvigongzuoshi.github.io/cesium-react';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   @override

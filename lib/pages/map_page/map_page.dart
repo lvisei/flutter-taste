@@ -46,6 +46,7 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _getLocatin() async {
+    /*TODO:iOS*/
     Position position = await Geolocator()
         .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
     if (position == null) {
@@ -151,23 +152,17 @@ class _MapPageState extends State<MapPage> {
                 color: Colors.white,
                 child: new Text("beijing"),
                 padding: const EdgeInsets.all(0.0),
-                onPressed: () {
-                  mapController.move(beijing, 18.0);
-                },
+                onPressed: () => mapController.move(beijing, 18.0),
               ),
               new RaisedButton(
                 color: Colors.white,
                 child: new Text("chengdu"),
-                onPressed: () {
-                  mapController.move(chengdu, 11.0);
-                },
+                onPressed: () => mapController.move(chengdu, 11.0),
               ),
               new RaisedButton(
                 color: Colors.white,
                 child: new Text("taiwan"),
-                onPressed: () {
-                  mapController.move(taiwan, 10.0);
-                },
+                onPressed: () => mapController.move(taiwan, 10.0),
               ),
             ],
           ),
@@ -211,13 +206,15 @@ class _MapPageState extends State<MapPage> {
           ),
         ),
         Positioned(
-            bottom: 18.0,
-            right: 0.0,
-            child: RaisedButton(
-                onPressed: _getLocatin,
-                child: Icon(Icons.my_location, color: Colors.black54),
-                shape: CircleBorder(),
-                color: Colors.white))
+          bottom: 18.0,
+          right: 0.0,
+          child: RaisedButton(
+            onPressed: _getLocatin,
+            child: Icon(Icons.my_location, color: Colors.black54),
+            shape: CircleBorder(),
+            color: Colors.white,
+          ),
+        )
       ],
     );
   }
