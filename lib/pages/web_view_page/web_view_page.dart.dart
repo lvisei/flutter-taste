@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class WebViewPage extends StatefulWidget {
   final String url;
@@ -72,6 +73,10 @@ class _WebViewPageState extends State<WebViewPage> {
             supportMultipleWindows: true,
             allowFileURLs: true,
             geolocationEnabled: true,
+            initialChild: SpinKitDoubleBounce(
+              color: Colors.blue,
+              size: 50.0,
+            ),
           ),
         ),
       ),

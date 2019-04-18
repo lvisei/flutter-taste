@@ -63,7 +63,7 @@ class _ListViewPageState extends State<ListViewPage> {
     final alreadySaved = _saved.contains(pair);
     return new ListTile(
       title: new Text(
-        '$index : $pair.asPascalCase',
+        '$index : $pair',
         style: _biggerFont,
       ),
       trailing: new Icon(

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 class CesiumPage extends StatefulWidget {
   const CesiumPage({Key key}) : super(key: key);
@@ -32,36 +33,25 @@ class _CesiumPageState extends State<CesiumPage> {
             .fromWindow(WidgetsBinding.instance.window)
             .padding
             .top;
+
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(top: statusBarHeight),
-        child: WebView(
-          initialUrl: url,
-          javascriptMode: JavascriptMode.unrestricted,
-          onPageFinished: (String url) =>
-          {
-          setState(() {
-            hasLoaded = true;
-          })
-          },
+        child: WebviewScaffold(
+          url: url,
+          withLocalStorage: true,
+          withJavascript: true,
+          withZoom: false,
+          hidden: true,
+          supportMultipleWindows: true,
+          allowFileURLs: true,
+          geolocationEnabled: true,
+          initialChild: SpinKitRipple(
+            color: Colors.blue,
+            size: 50.0,
+          ),
         ),
       ),
     );
-    /*return WebviewScaffold(
-      appBar: AppBar(
-        title: Text("Cesium Demo"),
-        actions: <Widget>[
-          IconButton(icon: Icon(CupertinoIcons.share), onPressed: null),
-        ],
-      ),
-      url: url,
-      withLocalStorage: true,
-      withJavascript: true,
-      withZoom: false,
-      hidden: true,
-      supportMultipleWindows: true,
-      allowFileURLs: true,
-      geolocationEnabled: true,
-    );*/
   }
 }

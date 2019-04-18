@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_demo_app/pages/web_view_page/web_view_page.dart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:photo_view/photo_view.dart';
 
 import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_demo_app/utils/screen_utils.dart';
@@ -107,6 +108,20 @@ class _AboutPageState extends State<AboutPage> {
     Fluttertoast.showToast(msg: '已复制邮箱地址');
   }
 
+  _handPreviewImg(ImageProvider imageProvider) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (BuildContext context, _, __) =>
+            Container(
+                child: PhotoView(
+                  imageProvider: imageProvider,
+                )),
+        transitionDuration: const Duration(milliseconds: 100),
+      ),
+    );
+  }
+
   Widget _buildItem(String icon, Color color, String text, onTap) {
     return GestureDetector(
       onTap: onTap,
@@ -170,32 +185,41 @@ class _AboutPageState extends State<AboutPage> {
               height: height,
             ),
           ),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
-            child: Container(
-              width: ScreenUtils.width,
-              height: height,
-              color: Colors.transparent,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(avatarUrl),
-                    radius: 50.0,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'liuvigongzuoshi',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFFFFF),
+          GestureDetector(
+            onTap: () =>
+                _handPreviewImg(CachedNetworkImageProvider(avatarBgUrl)),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
+              child: Container(
+                width: ScreenUtils.width,
+                height: height,
+                color: Colors.transparent,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    GestureDetector(
+                      onTap: () =>
+                          _handPreviewImg(
+                              CachedNetworkImageProvider(avatarUrl)),
+                      child: CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(avatarUrl),
+                        radius: 50.0,
+                      ),
                     ),
-                  )
-                ],
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'liuvigongzuoshi',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFFFFFFF),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
