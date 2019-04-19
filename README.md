@@ -10,7 +10,7 @@ url_launcher | 启动外部浏览器
 flutter_map | 基于Leaflet地图插件
 dio | 网络请求
 flutter_webview_plugin | 全屏的webview
-geolocator | 定位
+amap_location | 定位
 share | 系统分享
 cached_network_image | 图片加载缓存（sqflite）
 fluttertoast | toast

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong/latlong.dart';
-import 'package:geolocator/geolocator.dart';
+import 'package:amap_location/amap_location.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -17,19 +19,7 @@ class _MapPageState extends State<MapPage> {
   static LatLng taiwan = new LatLng(24.137639, 120.691316);
   static LatLng xian = new LatLng(34.269985, 108.942833);
 
-  List<Marker> locationmMrkers = <Marker>[
-    new Marker(
-      width: 80.0,
-      height: 80.0,
-      point: beijing,
-      builder: (ctx) =>
-      new Container(
-        child: Container(
-          child: new FlutterLogo(colors: Colors.red),
-        ),
-      ),
-    )
-  ];
+  LatLng locationmPoint = new LatLng(0.269985, 0.942833);
 
   MapController mapController;
 
@@ -47,15 +37,32 @@ class _MapPageState extends State<MapPage> {
 
   void _getLocatin() async {
     /*TODO:iOS*/
-    Position position = await Geolocator()
-        .getLastKnownPosition(desiredAccuracy: LocationAccuracy.high);
-    if (position == null) {
-      _showSnackBar(new Text('location erro'));
-    } else {
-      print(position);
-      _showSnackBar(new Text('$position'));
-      mapController.move(LatLng(position.latitude, position.longitude), 12);
+    PermissionStatus permission = await PermissionHandler()
+        .checkPermissionStatus(PermissionGroup.locationWhenInUse);
+
+    if (permission != PermissionStatus.granted) {
+      Map<PermissionGroup, PermissionStatus> requestingPermission =
+      await PermissionHandler()
+          .requestPermissions([PermissionGroup.locationWhenInUse]);
+      if (requestingPermission['locationWhenInUse'] ==
+          PermissionStatus.denied) {
+        _showSnackBar(new Text('申请定位权限失败'));
+      }
     }
+
+    await AMapLocationClient.startup(new AMapLocationOption(
+        desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
+    AMapLocation currentLocation = await AMapLocationClient.getLocation(true);
+
+    setState(() {
+      locationmPoint =
+      new LatLng(currentLocation.latitude, currentLocation.longitude);
+    });
+
+    mapController.move(
+      LatLng(currentLocation.latitude, currentLocation.longitude),
+      14,
+    );
   }
 
   @override
@@ -116,6 +123,22 @@ class _MapPageState extends State<MapPage> {
           color: Color(0xFFFFFFFF).withOpacity(0.5),
           borderColor: Color.fromARGB(150, 52, 33, 55))
     ];
+    List<Marker> locationmMrkers = <Marker>[
+      new Marker(
+        width: 80.0,
+        height: 80.0,
+        point: locationmPoint,
+        builder: (ctx) =>
+        new Container(
+          child: locationmPoint == new LatLng(0.269985, 0.942833)
+              ? Text('')
+              : SpinKitPulse(
+            color: Colors.blue,
+            size: 50.0,
+          ),
+        ),
+      )
+    ];
 
     // 状态栏高度
     double statusBarHeight =
@@ -141,6 +164,7 @@ class _MapPageState extends State<MapPage> {
             new CircleLayerOptions(circles: circleMarkers),
             new PolygonLayerOptions(polygons: polygons),
             new MarkerLayerOptions(markers: markers),
+            new MarkerLayerOptions(markers: locationmMrkers),
           ],
         ),
         Positioned(
