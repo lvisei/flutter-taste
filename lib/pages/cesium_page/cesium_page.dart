@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -21,11 +23,23 @@ class _CesiumPageState extends State<CesiumPage> {
   @override
   void initState() {
     super.initState();
+
+    /*if (Platform.isAndroid) {
+      SystemUiOverlayStyle systemUiOverlayStyle =
+          SystemUiOverlayStyle(statusBarColor: Colors.black);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+      ScreenUtils.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    }*/
   }
 
   @override
   void dispose() {
     super.dispose();
+    /*if (Platform.isAndroid) {
+      SystemUiOverlayStyle systemUiOverlayStyle =
+          SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }*/
   }
 
   @override
@@ -35,7 +49,6 @@ class _CesiumPageState extends State<CesiumPage> {
             .fromWindow(WidgetsBinding.instance.window)
             .padding
             .top;
-    ScreenUtils.updateStatusBarStyle(SystemUiOverlayStyle.dark);
 
     return Scaffold(
       body: Container(
