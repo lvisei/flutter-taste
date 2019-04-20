@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_demo_app/utils/screen_utils.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
@@ -33,6 +35,7 @@ class _CesiumPageState extends State<CesiumPage> {
             .fromWindow(WidgetsBinding.instance.window)
             .padding
             .top;
+    ScreenUtils.updateStatusBarStyle(SystemUiOverlayStyle.dark);
 
     return Scaffold(
       body: Container(

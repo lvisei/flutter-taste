@@ -19,7 +19,7 @@ class _MapPageState extends State<MapPage> {
   static LatLng taiwan = new LatLng(24.137639, 120.691316);
   static LatLng xian = new LatLng(34.269985, 108.942833);
 
-  LatLng locationmPoint = new LatLng(0.269985, 0.942833);
+  LatLng locationmPoint = new LatLng(0, 0);
 
   MapController mapController;
 
@@ -130,8 +130,8 @@ class _MapPageState extends State<MapPage> {
         point: locationmPoint,
         builder: (ctx) =>
         new Container(
-          child: locationmPoint == new LatLng(0.269985, 0.942833)
-              ? Text('')
+          child: locationmPoint == new LatLng(0, 0)
+              ? null
               : SpinKitPulse(
             color: Colors.blue,
             size: 50.0,

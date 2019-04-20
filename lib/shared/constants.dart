@@ -17,8 +17,8 @@ class TdtMapUrl {
 }
 
 class ServerUrl {
-  static const String avatarUrl = 'https://s2.ax1x.com/2019/04/17/AzuiND.jpg';
+  static const String avatarUrl = 'https://lg-qc3s3poi-1256667753.cos.ap-shanghai.myqcloud.com/02ea1e41ac035b1908bf3320b1b5a932.jpg';
   static const String avatarBgUrl01 = 'https://s2.ax1x.com/2019/04/17/AzQmuR.jpg';
-  static const String avatarBgUrl02 = 'https://s2.ax1x.com/2019/04/17/AzQcKs.jpg';
-  static const String avatarBgUrl03 = 'https://s2.ax1x.com/2019/04/18/ESS9at.jpg';
+  static const String avatarBgUrl02 = 'https://lg-qc3s3poi-1256667753.cos.ap-shanghai.myqcloud.com/02ea1e41ac035b1908bf3320b1b5a932.jpg';
+  static const String avatarBgUrl03 = 'https://lg-qc3s3poi-1256667753.cos.ap-shanghai.myqcloud.com/1547129300.jpg';
 }
