@@ -1,7 +1,11 @@
 # flutter-demo
 An initial taste of the Flutter project
 
-## packages
+## Preview
+
+![preview](./preview.gif)
+
+## Packages
 
 packages name | Features
 ---|---
