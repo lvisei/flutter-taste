@@ -26,6 +26,8 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     mapController = new MapController();
+    // iOS
+    AMapLocationClient.setApiKey("fad348fc16d6404f5170d703056627b7");
   }
 
   void _showSnackBar(content) {
@@ -42,8 +44,8 @@ class _MapPageState extends State<MapPage> {
 
     if (permission != PermissionStatus.granted) {
       Map<PermissionGroup, PermissionStatus> requestingPermission =
-      await PermissionHandler()
-          .requestPermissions([PermissionGroup.locationWhenInUse]);
+          await PermissionHandler()
+              .requestPermissions([PermissionGroup.locationWhenInUse]);
       if (requestingPermission['locationWhenInUse'] ==
           PermissionStatus.denied) {
         _showSnackBar(new Text('申请定位权限失败'));
@@ -56,7 +58,7 @@ class _MapPageState extends State<MapPage> {
 
     setState(() {
       locationmPoint =
-      new LatLng(currentLocation.latitude, currentLocation.longitude);
+          new LatLng(currentLocation.latitude, currentLocation.longitude);
     });
 
     mapController.move(
@@ -73,15 +75,15 @@ class _MapPageState extends State<MapPage> {
         height: 80.0,
         point: beijing,
         builder: (ctx) => new Container(
-          child: new GestureDetector(
-            onTap: () {
-              _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
-            },
-            child: Container(
-              child: new FlutterLogo(colors: Colors.red),
+              child: new GestureDetector(
+                onTap: () {
+                  _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
+                },
+                child: Container(
+                  child: new FlutterLogo(colors: Colors.red),
+                ),
+              ),
             ),
-          ),
-        ),
       )
     ];
     List<CircleMarker> circleMarkers = <CircleMarker>[
@@ -128,24 +130,20 @@ class _MapPageState extends State<MapPage> {
         width: 80.0,
         height: 80.0,
         point: locationmPoint,
-        builder: (ctx) =>
-        new Container(
-          child: locationmPoint == new LatLng(0, 0)
-              ? null
-              : SpinKitPulse(
-            color: Colors.blue,
-            size: 50.0,
-          ),
-        ),
+        builder: (ctx) => new Container(
+              child: locationmPoint == new LatLng(0, 0)
+                  ? null
+                  : SpinKitPulse(
+                      color: Colors.blue,
+                      size: 50.0,
+                    ),
+            ),
       )
     ];
 
     // 状态栏高度
     double statusBarHeight =
-        MediaQueryData
-            .fromWindow(WidgetsBinding.instance.window)
-            .padding
-            .top;
+        MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top;
 
     return Stack(
       children: <Widget>[
@@ -219,10 +217,10 @@ class _MapPageState extends State<MapPage> {
                   final bounds = mapController.bounds;
                   _showSnackBar(new Text(
                     'Map bounds: \n'
-                        'E: ${bounds.east} \n'
-                        'N: ${bounds.north} \n'
-                        'W: ${bounds.west} \n'
-                        'S: ${bounds.south}',
+                    'E: ${bounds.east} \n'
+                    'N: ${bounds.north} \n'
+                    'W: ${bounds.west} \n'
+                    'S: ${bounds.south}',
                   ));
                 },
               ),
