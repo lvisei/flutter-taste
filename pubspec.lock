@@ -98,7 +98,7 @@ packages:
       name: dio
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.6"
+    version: "2.1.7"
   english_words:
     dependency: "direct main"
     description:
@@ -145,7 +145,7 @@ packages:
       name: flutter_svg
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.12.4+1"
+    version: "0.12.4+2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -379,7 +379,7 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.0.2"
+    version: "5.0.3"
   uuid:
     dependency: transitive
     description:
@@ -410,4 +410,4 @@ packages:
     version: "3.4.1"
 sdks:
   dart: ">=2.2.0 <3.0.0"
-  flutter: ">=0.7.3 <2.0.0"
+  flutter: ">=1.5.0 <1.5.9"
