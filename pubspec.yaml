@@ -25,19 +25,19 @@ dependencies:
   cupertino_icons: ^0.1.2
 
   english_words: ^3.1.5
-  shared_preferences: ^0.4.3
-  url_launcher: ^5.0.2
-  flutter_map: ^0.5.0
-  dio: ^2.1.0
-  flutter_webview_plugin: ^0.3.3
+  shared_preferences: ^0.5.3+4
+  url_launcher: ^5.1.2
+  flutter_map: ^0.7.0+2
+  dio: ^2.1.13
+  flutter_webview_plugin: ^0.3.5
   amap_location: ^0.2.0
-  share: ^0.6.1
-  cached_network_image: ^0.5.0
-  fluttertoast: ^3.0.3
-  flutter_svg: ^0.12.4
-  photo_view: ^0.2.4
+  share: ^0.6.2+1
+  cached_network_image: ^1.1.1
+  fluttertoast: ^3.1.0
+  flutter_svg: ^0.14.0
+  photo_view: ^0.4.2
   flutter_spinkit: ^3.1.0
-  permission_handler: ^3.0.0
+  permission_handler: ^3.2.1+1
 
 dev_dependencies:
   flutter_test:
