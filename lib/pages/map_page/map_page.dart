@@ -38,16 +38,14 @@ class _MapPageState extends State<MapPage> {
   }
 
   void _getLocatin() async {
-    /*TODO:iOS*/
-    PermissionStatus permission = await PermissionHandler()
-        .checkPermissionStatus(PermissionGroup.locationWhenInUse);
+    var status = await Permission.locationWhenInUse.status;
+    if(status.isUndetermined || status.isDenied || status.isRestricted || status.isPermanentlyDenied){
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.locationWhenInUse,
+      ].request();
 
-    if (permission != PermissionStatus.granted) {
-      Map<PermissionGroup, PermissionStatus> requestingPermission =
-          await PermissionHandler()
-              .requestPermissions([PermissionGroup.locationWhenInUse]);
-      if (requestingPermission['locationWhenInUse'] ==
-          PermissionStatus.denied) {
+      var locationWhenInUse = statuses[Permission.locationWhenInUse];
+      if(locationWhenInUse.isDenied || locationWhenInUse.isRestricted || locationWhenInUse.isPermanentlyDenied) {
         _showSnackBar(new Text('申请定位权限失败'));
       }
     }
