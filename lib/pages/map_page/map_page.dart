@@ -3,7 +3,7 @@ import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong/latlong.dart';
-import 'package:amap_location/amap_location.dart';
+//import 'package:amap_location/amap_location.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MapPage extends StatefulWidget {
@@ -27,7 +27,7 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     mapController = new MapController();
     // iOS
-    AMapLocationClient.setApiKey("fad348fc16d6404f5170d703056627b7");
+    // AMapLocationClient.setApiKey("fad348fc16d6404f5170d703056627b7");
   }
 
   void _showSnackBar(content) {
@@ -39,30 +39,35 @@ class _MapPageState extends State<MapPage> {
 
   void _getLocatin() async {
     var status = await Permission.locationWhenInUse.status;
-    if(status.isUndetermined || status.isDenied || status.isRestricted || status.isPermanentlyDenied){
+    if (status.isUndetermined ||
+        status.isDenied ||
+        status.isRestricted ||
+        status.isPermanentlyDenied) {
       Map<Permission, PermissionStatus> statuses = await [
         Permission.locationWhenInUse,
       ].request();
 
       var locationWhenInUse = statuses[Permission.locationWhenInUse];
-      if(locationWhenInUse.isDenied || locationWhenInUse.isRestricted || locationWhenInUse.isPermanentlyDenied) {
+      if (locationWhenInUse.isDenied ||
+          locationWhenInUse.isRestricted ||
+          locationWhenInUse.isPermanentlyDenied) {
         _showSnackBar(new Text('申请定位权限失败'));
       }
     }
 
-    await AMapLocationClient.startup(new AMapLocationOption(
-        desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
-    AMapLocation currentLocation = await AMapLocationClient.getLocation(true);
-
-    setState(() {
-      locationmPoint =
-          new LatLng(currentLocation.latitude, currentLocation.longitude);
-    });
-
-    mapController.move(
-      LatLng(currentLocation.latitude, currentLocation.longitude),
-      14,
-    );
+//    await AMapLocationClient.startup(new AMapLocationOption(
+//        desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
+//    AMapLocation currentLocation = await AMapLocationClient.getLocation(true);
+//
+//    setState(() {
+//      locationmPoint =
+//          new LatLng(currentLocation.latitude, currentLocation.longitude);
+//    });
+//
+//    mapController.move(
+//      LatLng(currentLocation.latitude, currentLocation.longitude),
+//      14,
+//    );
   }
 
   @override
@@ -73,15 +78,15 @@ class _MapPageState extends State<MapPage> {
         height: 80.0,
         point: beijing,
         builder: (ctx) => new Container(
-              child: new GestureDetector(
-                onTap: () {
-                  _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
-                },
-                child: Container(
-                  child: new FlutterLogo(colors: Colors.red),
-                ),
-              ),
+          child: new GestureDetector(
+            onTap: () {
+              _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
+            },
+            child: Container(
+              child: new FlutterLogo(colors: Colors.red),
             ),
+          ),
+        ),
       )
     ];
     List<CircleMarker> circleMarkers = <CircleMarker>[
@@ -129,13 +134,13 @@ class _MapPageState extends State<MapPage> {
         height: 80.0,
         point: locationmPoint,
         builder: (ctx) => new Container(
-              child: locationmPoint == new LatLng(0, 0)
-                  ? null
-                  : SpinKitPulse(
-                      color: Colors.blue,
-                      size: 50.0,
-                    ),
-            ),
+          child: locationmPoint == new LatLng(0, 0)
+              ? null
+              : SpinKitPulse(
+                  color: Colors.blue,
+                  size: 50.0,
+                ),
+        ),
       )
     ];
 
