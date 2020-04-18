@@ -42,12 +42,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>高端定位SDK</string>
+	<string>测试高端SDK定位</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>始终以及在使用时！</string>
+	<string>测试使用时始终使用定位</string>
 	<key>NSLocationUsageDescription</key>
-	<string>较旧的设备需要定位。</string>
+	<string>测试较旧的设备需要定位</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>我可以经常使用定位吗？</string>
+	<string>测试始终使用定位？</string>
 </dict>
 </plist>
