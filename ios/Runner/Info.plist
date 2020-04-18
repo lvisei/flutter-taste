@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -41,7 +41,29 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
+	<!-- Permission options for the `location` group -->
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Need location when in use</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Always and when in use!</string>
+  <key>NSLocationUsageDescription</key>
+  <string>Older devices need location.</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Can I haz location always?</string>
+
+<!-- amap_location -->
 	<key>NSLocationWhenInUseUsageDescription</key>
-    <string>要用定位</string>
+	<string>高端定位</string>
+
+<!-- flutter_webview_plugin -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+    <key>NSAllowsArbitraryLoads</key>
+    <true/>
+    <key>NSAllowsArbitraryLoadsInWebContent</key>
+    <true/>
+	</dict>
+
 </dict>
 </plist>
