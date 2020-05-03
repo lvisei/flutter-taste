@@ -3,8 +3,22 @@ import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong/latlong.dart';
-//import 'package:amap_location_fluttify/amap_location_fluttify.dart';
+import 'package:amap_location_fluttify/amap_location_fluttify.dart' hide LatLng;
 import 'package:permission_handler/permission_handler.dart';
+
+Future<bool> requestPermission() async {
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.locationWhenInUse,
+  ].request();
+
+  var locationWhenInUse = statuses[Permission.locationWhenInUse];
+
+  if (locationWhenInUse.isGranted) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
@@ -27,8 +41,8 @@ class _MapPageState extends State<MapPage> {
     super.initState();
     mapController = new MapController();
     // amap key
-    // await AmapService.init(iosKey: 'fad348fc16d6404f5170d703056627b7', androidKey: 'fad348fc16d6404f5170d703056627b7');
-
+    // await
+    AmapCore.init('543e7cf959aaa7667e1212f278933fc3');
   }
 
   void _showSnackBar(content) {
@@ -53,22 +67,19 @@ class _MapPageState extends State<MapPage> {
           locationWhenInUse.isRestricted ||
           locationWhenInUse.isPermanentlyDenied) {
         _showSnackBar(new Text('申请定位权限失败'));
+        return;
       }
     }
 
-//    await AMapLocationClient.startup(new AMapLocationOption(
-//        desiredAccuracy: CLLocationAccuracy.kCLLocationAccuracyHundredMeters));
-//    AMapLocation currentLocation = await AMapLocationClient.getLocation(true);
-//
-//    setState(() {
-//      locationmPoint =
-//          new LatLng(currentLocation.latitude, currentLocation.longitude);
-//    });
-//
-//    mapController.move(
-//      LatLng(currentLocation.latitude, currentLocation.longitude),
-//      14,
-//    );
+    final location = await AmapLocation.fetchLocation();
+    // print(location);
+    setState(() => locationmPoint =
+        new LatLng(location.latLng.latitude, location.latLng.longitude));
+
+    mapController.move(
+      LatLng(locationmPoint.latitude, locationmPoint.longitude),
+      14,
+    );
   }
 
   @override
@@ -94,7 +105,7 @@ class _MapPageState extends State<MapPage> {
       new CircleMarker(
           point: chengdu,
           color: Colors.green,
-          borderStrokeWidth: 300,
+          borderStrokeWidth: 0,
           borderColor: Colors.lightBlue,
           useRadiusInMeter: true,
           radius: 1000 // 1000 meters | 1 km
@@ -102,7 +113,7 @@ class _MapPageState extends State<MapPage> {
       new CircleMarker(
           point: taiwan,
           color: Colors.lightBlue,
-          borderStrokeWidth: 200,
+          borderStrokeWidth: 0,
           borderColor: Colors.redAccent,
           useRadiusInMeter: true,
           radius: 1000 // 1000 meters | 1 km

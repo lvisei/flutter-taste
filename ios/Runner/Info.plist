@@ -42,12 +42,12 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>测试高端SDK定位</string>
+	<string>测试高端SDK定位 应用在前台的时候可以搜到更新的位置信息</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>测试使用时始终使用定位</string>
+	<string>测试高端SDK定位 申请Always权限，以便应用在前台和后台（suspend 或 terminated）都可以获取到更新的位置数据</string>
 	<key>NSLocationUsageDescription</key>
-	<string>测试较旧的设备需要定位</string>
+	<string>测试高端SDK定位 测试较旧的设备需要定位</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>测试始终使用定位？</string>
+	<string>测试高端SDK定位 申请Always权限，以便应用在前台和后台（suspend 或 terminated）都可以获取到更新的位置数据</string>
 </dict>
 </plist>
