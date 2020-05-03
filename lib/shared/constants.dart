@@ -1,5 +1,5 @@
 class TdtMapUrl {
-  static const String code = "e60679f6e9718d3426f745fd8cd94cbd";
+  static const String code = "b7a7df27f9650aff9e55f17045f04c66";
   static const String vec_w =
       "http://t0.tianditu.gov.cn/vec_w/wmts?SERVICE=WMTS&REQUEST=GetTile&VERSION=1.0.0&LAYER=vec&STYLE=default&TILEMATRIXSET=w&FORMAT=tiles&TILEMATRIX={z}&TILEROW={y}&TILECOL={x}&tk=$code";
   static const String cva_w =

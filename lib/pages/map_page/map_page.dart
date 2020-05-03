@@ -3,7 +3,7 @@ import 'package:flutter_demo_app/shared/constants.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong/latlong.dart';
-//import 'package:amap_location/amap_location.dart';
+//import 'package:amap_location_fluttify/amap_location_fluttify.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MapPage extends StatefulWidget {
@@ -26,8 +26,9 @@ class _MapPageState extends State<MapPage> {
   void initState() {
     super.initState();
     mapController = new MapController();
-    // iOS
-    // AMapLocationClient.setApiKey("fad348fc16d6404f5170d703056627b7");
+    // amap key
+    // await AmapService.init(iosKey: 'fad348fc16d6404f5170d703056627b7', androidKey: 'fad348fc16d6404f5170d703056627b7');
+
   }
 
   void _showSnackBar(content) {
@@ -93,7 +94,7 @@ class _MapPageState extends State<MapPage> {
       new CircleMarker(
           point: chengdu,
           color: Colors.green,
-          borderStrokeWidth: 200,
+          borderStrokeWidth: 300,
           borderColor: Colors.lightBlue,
           useRadiusInMeter: true,
           radius: 1000 // 1000 meters | 1 km
