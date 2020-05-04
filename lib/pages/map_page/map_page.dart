@@ -6,20 +6,6 @@ import 'package:latlong/latlong.dart';
 import 'package:amap_location_fluttify/amap_location_fluttify.dart' hide LatLng;
 import 'package:permission_handler/permission_handler.dart';
 
-Future<bool> requestPermission() async {
-  Map<Permission, PermissionStatus> statuses = await [
-    Permission.locationWhenInUse,
-  ].request();
-
-  var locationWhenInUse = statuses[Permission.locationWhenInUse];
-
-  if (locationWhenInUse.isGranted) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 class MapPage extends StatefulWidget {
   const MapPage({Key key}) : super(key: key);
 
@@ -254,5 +240,19 @@ class _MapPageState extends State<MapPage> {
         )
       ],
     );
+  }
+}
+
+Future<bool> requestPermission() async {
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.locationWhenInUse,
+  ].request();
+
+  var locationWhenInUse = statuses[Permission.locationWhenInUse];
+
+  if (locationWhenInUse.isGranted) {
+    return true;
+  } else {
+    return false;
   }
 }
