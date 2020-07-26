@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,15 +17,33 @@ class WebViewPage extends StatefulWidget {
 
 class _WebViewPageState extends State<WebViewPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool hasLoaded = false;
-  final flutterWebViewPlugin = new FlutterWebviewPlugin();
+  final Completer<bool> pageStarted = Completer<bool>();
+  final Completer<bool> pageLoaded = Completer<bool>();
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
 
-  Future<Null> _onRefresh() async {
-    Scaffold.of(context).showSnackBar(new SnackBar(
-        content: Text("刷新中"),
-        duration: new Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(0, 0, 0, 0)));
-    await flutterWebViewPlugin.reload();
+  Future<Null> _onRefresh(BuildContext context) async {
+    Scaffold.of(context).showSnackBar(SnackBar(
+      content: Text("刷新中"),
+      duration: new Duration(seconds: 1),
+      backgroundColor: Color.fromARGB(0, 0, 0, 0),
+    ));
+    await _controller.future.then((_controller) => _controller.reload());
+  }
+
+  Widget reloadButton() {
+    return FutureBuilder<WebViewController>(
+        future: _controller.future,
+        builder:
+            (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
+          final bool webViewReady =
+              snapshot.connectionState == ConnectionState.done;
+          final WebViewController controller = snapshot.data;
+          return IconButton(
+            icon: Icon(CupertinoIcons.refresh),
+            onPressed: webViewReady ? () => _onRefresh(context) : null,
+          );
+        });
   }
 
   _launchURL(String url) async {
@@ -37,49 +57,67 @@ class _WebViewPageState extends State<WebViewPage> {
   @override
   void initState() {
     super.initState();
-    flutterWebViewPlugin.onStateChanged.listen((state) {
-      print(state);
-    });
   }
 
   @override
   void dispose() {
-    flutterWebViewPlugin.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return RefreshIndicator(
-      onRefresh: _onRefresh,
-      child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text(widget.title),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(CupertinoIcons.share_up),
-              onPressed: () => _launchURL(widget.url),
-            )
-          ],
-        ),
-        body: RefreshIndicator(
-          onRefresh: _onRefresh,
-          child: WebviewScaffold(
-            url: widget.url,
-            withZoom: false,
-            withLocalStorage: true,
-            withJavascript: true,
-            supportMultipleWindows: true,
-            allowFileURLs: true,
-            geolocationEnabled: true,
-            initialChild: SpinKitDoubleBounce(
-              color: Colors.blue,
-              size: 50.0,
-            ),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text(widget.title),
+        actions: <Widget>[
+          Builder(builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(CupertinoIcons.refresh_thin),
+              onPressed: () => _onRefresh(context),
+            );
+          }),
+          IconButton(
+            icon: Icon(CupertinoIcons.share_up),
+            onPressed: () => _launchURL(widget.url),
           ),
-        ),
+        ],
       ),
+      body: Builder(builder: (BuildContext context) {
+        return Stack(
+          children: <Widget>[
+            WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller.complete(webViewController);
+              },
+              onPageStarted: (String url) {
+                pageStarted.complete(true);
+              },
+              onPageFinished: (String url) {
+                pageLoaded.complete(true);
+              },
+            ),
+            Container(
+              child: FutureBuilder<bool>(
+                future: pageStarted.future,
+                builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                  final bool pageStarted = snapshot.data == true;
+                  return pageStarted
+                      ? Container()
+                      : Center(
+                          child: SpinKitCircle(
+                            color: Colors.blue,
+                            size: 50.0,
+                          ),
+                        );
+                },
+              ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }
@@ -135,6 +173,15 @@ class _WebViewExampleState extends State<WebViewExample> {
       ),
       url: urlString,
       withZoom: false,
+      withLocalStorage: true,
+      withJavascript: true,
+      supportMultipleWindows: true,
+      allowFileURLs: true,
+      geolocationEnabled: true,
+      initialChild: SpinKitDoubleBounce(
+        color: Colors.blue,
+        size: 50.0,
+      ),
     );
   }
 }
