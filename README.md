@@ -14,7 +14,7 @@ url_launcher | 启动外部浏览器
 flutter_map | 基于Leaflet地图库
 dio | 网络请求
 webview_flutter | official webview
-flutter_inappwebview ｜ inline webview
+flutter_inappwebview | inline webview
 amap_location_fluttify | 高德定位插件
 share | 系统分享插件
 cached_network_image | 图片加载缓存（sqflite）
