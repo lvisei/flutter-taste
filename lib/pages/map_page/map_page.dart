@@ -58,7 +58,7 @@ class _MapPageState extends State<MapPage> {
       }
     }
 
-    final location = await AmapLocation.fetchLocation();
+    final location = await AmapLocation.instance.fetchLocation();
     // print(location);
     setState(() => locationmPoint =
         new LatLng(location.latLng.latitude, location.latLng.longitude));
