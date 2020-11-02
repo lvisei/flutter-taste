@@ -82,7 +82,7 @@ class _MapPageState extends State<MapPage> {
               _showSnackBar(new Text("Tapped on blue FlutterLogo Marker"));
             },
             child: Container(
-              child: new FlutterLogo(colors: Colors.red),
+              child: new FlutterLogo(textColor: Colors.red),
             ),
           ),
         ),
