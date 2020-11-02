@@ -19,10 +19,10 @@ class _MainNavigationState extends State<MainNavigation> {
   var _lastTime;
 
   final List<BottomNavigationBarItem> bottomNavigationItems = [
-    BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('首页')),
-    BottomNavigationBarItem(icon: Icon(Icons.map), title: Text('地图')),
-    BottomNavigationBarItem(icon: Icon(Icons.trip_origin), title: Text('三维')),
-    BottomNavigationBarItem(icon: Icon(Icons.face), title: Text('关于')),
+    BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
+    BottomNavigationBarItem(icon: Icon(Icons.map), label: '地图'),
+    BottomNavigationBarItem(icon: Icon(Icons.trip_origin), label: '三维'),
+    BottomNavigationBarItem(icon: Icon(Icons.face), label: '关于'),
   ];
   final List tabBodies = [
     new HomePage(),
