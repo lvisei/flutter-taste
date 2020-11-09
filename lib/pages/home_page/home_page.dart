@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:flutter_demo_app/pages/test_pege/test_pege.dart';
-import 'package:flutter_demo_app/pages/list_view_page/list_view_page.dart';
-import 'package:flutter_demo_app/layouts/my_drawer.dart';
-import 'package:flutter_demo_app/pages/custom_paint_page/custom_paint_page.dart';
-import 'package:flutter_demo_app/pages/net_list_view_page/net_list_view_page.dart';
+import 'package:flutter_demo/pages/test_pege/test_pege.dart';
+import 'package:flutter_demo/pages/list_view_page/list_view_page.dart';
+import 'package:flutter_demo/layouts/my_drawer.dart';
+import 'package:flutter_demo/pages/custom_paint_page/custom_paint_page.dart';
+import 'package:flutter_demo/pages/net_list_view_page/net_list_view_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -14,8 +14,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => new _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
   String _title = '首页';
   TabController _tabController;
   List tabs = ["列表", "网络", "绘制", "测试"];
@@ -49,9 +48,7 @@ class _HomePageState extends State<HomePage>
           );
         }),
         actions: <Widget>[
-          IconButton(
-              icon: Icon(CupertinoIcons.share),
-              onPressed: () => _shareURL(url)),
+          IconButton(icon: Icon(CupertinoIcons.share), onPressed: () => _shareURL(url)),
         ],
         bottom: TabBar(
           controller: _tabController,
@@ -61,12 +58,7 @@ class _HomePageState extends State<HomePage>
       drawer: new MyDrawer(),
       body: TabBarView(
         controller: _tabController,
-        children: <Widget>[
-          ListViewPage(),
-          NetListViewPage(),
-          CustomPaintPage(),
-          TestPage()
-        ],
+        children: <Widget>[ListViewPage(), NetListViewPage(), CustomPaintPage(), TestPage()],
       ),
     );
   }

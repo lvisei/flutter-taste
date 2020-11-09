@@ -19,8 +19,7 @@ class _WebViewPageState extends State<WebViewPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final Completer<bool> pageStarted = Completer<bool>();
   final Completer<bool> pageLoaded = Completer<bool>();
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  final Completer<WebViewController> _controller = Completer<WebViewController>();
 
   Future<Null> _onRefresh(BuildContext context) async {
     Scaffold.of(context).showSnackBar(SnackBar(
@@ -34,10 +33,8 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget reloadButton() {
     return FutureBuilder<WebViewController>(
         future: _controller.future,
-        builder:
-            (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
-          final bool webViewReady =
-              snapshot.connectionState == ConnectionState.done;
+        builder: (BuildContext context, AsyncSnapshot<WebViewController> snapshot) {
+          final bool webViewReady = snapshot.connectionState == ConnectionState.done;
           final WebViewController controller = snapshot.data;
           return IconButton(
             icon: Icon(CupertinoIcons.refresh),
@@ -122,12 +119,12 @@ class _WebViewPageState extends State<WebViewPage> {
   }
 }
 
-class WebViewExample extends StatefulWidget {
+class WebViewXPage extends StatefulWidget {
   @override
-  _WebViewExampleState createState() => _WebViewExampleState();
+  _WebViewXPageState createState() => _WebViewXPageState();
 }
 
-class _WebViewExampleState extends State<WebViewExample> {
+class _WebViewXPageState extends State<WebViewXPage> {
   TextEditingController controller = TextEditingController();
   FlutterWebviewPlugin flutterWebviewPlugin = FlutterWebviewPlugin();
   var urlString = "https://liuvigongzuoshi.github.io/cesium-react/index.html";

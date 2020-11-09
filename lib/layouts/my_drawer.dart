@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_app/shared/constants.dart';
+import 'package:flutter_demo/shared/constants.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({
     Key key,
   }) : super(key: key);
 
-  final avatarUrl = ServerUrl.avatarUrl;
+  final avatarUrl = AvatarUrl.avatarUrl;
 
   @override
   Widget build(BuildContext context) {

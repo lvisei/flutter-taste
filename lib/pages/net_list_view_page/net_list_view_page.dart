@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_app/model/mock_list__item.dart';
-import 'package:flutter_demo_app/utils/net_utils.dart';
+import 'package:flutter_demo/api/user.dart';
+import 'package:flutter_demo/struct/user_list.dart';
 
 class NetListViewPage extends StatefulWidget {
   @override
@@ -9,7 +9,7 @@ class NetListViewPage extends StatefulWidget {
 
 class _NetListViewPageState extends State<NetListViewPage> {
   List _userListData = new List();
-  final _saved = new Set<MockListItem>();
+  final _saved = new Set<UserListItem>();
   ScrollController _scrollController = new ScrollController();
   bool isLoading = false;
 
@@ -18,33 +18,20 @@ class _NetListViewPageState extends State<NetListViewPage> {
     super.initState();
     _getMoreData();
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
         _getMoreData();
       }
     });
   }
 
-  Future<Map> _getMockListData() async {
-    const mockList =
-        "https://easy-mock.com/mock/5be2f227033152564881d2e8/example/mock/view/list";
-    var responseUserList = [];
+  Future<List<UserListItem>> _getMockListData() async {
+    List<UserListItem> userList;
 
     try {
-      var response = await NetUtils.get(mockList);
-      responseUserList = response['data']['userList'];
+      UserList userListData = await ApiUserList.getUserList();
+      userList = userListData.userList;
     } catch (e) {}
-    List userList = new List();
-    for (int i = 0; i < responseUserList.length; i++) {
-      try {
-        MockListItem cellData = new MockListItem.fromJson(responseUserList[i]);
-        userList.add(cellData);
-      } catch (e) {
-        // No specified type, handles all
-      }
-    }
-    Map<String, List> result = {"userList": userList};
-    return result;
+    return userList;
   }
 
   Future _getMoreData() async {
@@ -53,7 +40,7 @@ class _NetListViewPageState extends State<NetListViewPage> {
       if (mounted) {
         setState(() => isLoading = true);
       }
-      List newUserList = (await _getMockListData())['userList'];
+      List newUserList = (await _getMockListData());
       if (mounted) {
         setState(() {
           _userListData.addAll(newUserList);
@@ -64,7 +51,7 @@ class _NetListViewPageState extends State<NetListViewPage> {
   }
 
   Future<void> _onRefresh() async {
-    List newUserList = (await _getMockListData())['userList'];
+    List newUserList = (await _getMockListData());
     if (mounted) {
       setState(() {
         _userListData.clear();
@@ -80,7 +67,7 @@ class _NetListViewPageState extends State<NetListViewPage> {
       new MaterialPageRoute(
         builder: (context) {
           final tiles = _saved.map(
-                (user) {
+            (user) {
               return new ListTile(
                 title: new Text(
                   user.name,
@@ -154,7 +141,7 @@ class _NetListViewPageState extends State<NetListViewPage> {
     );
   }
 
-  Widget _buildUserItem(MockListItem user) {
+  Widget _buildUserItem(UserListItem user) {
     final alreadySaved = _saved.contains(user);
     return Card(
       color: Colors.white,

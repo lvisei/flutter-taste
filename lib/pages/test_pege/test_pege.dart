@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_app/utils/shared_preferences.dart';
+import 'package:flutter_demo/utils/local_storage.dart';
 
 class TestPage extends StatefulWidget {
   @override
@@ -12,7 +12,7 @@ class _TestPageState extends State<TestPage> {
   @override
   void initState() {
     super.initState();
-    SharedPrefrencesUtil.getInt('_counter').then((int value) {
+    LocalStorage.getInt('_counter').then((int value) {
       setState(() {
         _counter = value ?? 0;
       });
@@ -23,7 +23,7 @@ class _TestPageState extends State<TestPage> {
     setState(() {
       _counter++;
     });
-    await SharedPrefrencesUtil.putInt('_counter', _counter);
+    await LocalStorage.putInt('_counter', _counter);
   }
 
   @override

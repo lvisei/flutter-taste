@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_app/widgets/Checkerboard.dart';
-import 'package:flutter_demo_app/widgets/Clock.dart';
-import 'package:flutter_demo_app/widgets/GradientCircularProgress.dart';
-import 'package:flutter_demo_app/widgets/Thermometer.dart';
+import 'package:flutter_demo/widgets/Checkerboard.dart';
+import 'package:flutter_demo/widgets/Clock.dart';
+import 'package:flutter_demo/widgets/GradientCircularProgress.dart';
+import 'package:flutter_demo/widgets/Thermometer.dart';
 
 class CustomPaintPage extends StatelessWidget {
   @override

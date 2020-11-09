@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_app/pages/cesium_page/cesium_page.dart';
-import 'package:flutter_demo_app/pages/home_page/home_page.dart';
-import 'package:flutter_demo_app/pages/map_page/map_page.dart';
-import 'package:flutter_demo_app/pages/about_page/about_page.dart';
+import 'package:flutter_demo/pages/cesium_page/cesium_page.dart';
+import 'package:flutter_demo/pages/home_page/home_page.dart';
+import 'package:flutter_demo/pages/map_page/map_page.dart';
+import 'package:flutter_demo/pages/about_page/about_page.dart';
 
 class MainNavigation extends StatefulWidget {
   MainNavigation({Key key, this.title}) : super(key: key);
@@ -24,12 +24,7 @@ class _MainNavigationState extends State<MainNavigation> {
     BottomNavigationBarItem(icon: Icon(Icons.trip_origin), label: '三维'),
     BottomNavigationBarItem(icon: Icon(Icons.face), label: '关于'),
   ];
-  final List tabBodies = [
-    new HomePage(),
-    new MapPage(),
-    new CesiumPage(),
-    new AboutPage()
-  ];
+  final List tabBodies = [new HomePage(), new MapPage(), new CesiumPage(), new AboutPage()];
 
   @override
   void initState() {
@@ -58,9 +53,7 @@ class _MainNavigationState extends State<MainNavigation> {
         body: __currentPage,
       ),
       onWillPop: () async {
-        if (_lastTime == null ||
-            DateTime.now().difference(_lastTime) >
-                Duration(milliseconds: 2000)) {
+        if (_lastTime == null || DateTime.now().difference(_lastTime) > Duration(milliseconds: 2000)) {
           _lastTime = DateTime.now();
           return false;
         } else {

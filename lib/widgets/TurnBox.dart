@@ -22,8 +22,7 @@ class _TurnBoxState extends State<TurnBox> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = new AnimationController(
-        vsync: this, lowerBound: -double.infinity, upperBound: double.infinity);
+    _controller = new AnimationController(vsync: this, lowerBound: -double.infinity, upperBound: double.infinity);
     _controller.value = widget.turns;
   }
 

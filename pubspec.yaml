@@ -1,5 +1,9 @@
-name: flutter_demo_app
-description: A new Futter Demo application.
+name: flutter_demo
+description: A initial taste of the Flutter project.
+
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -14,36 +18,32 @@ description: A new Futter Demo application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2 #图标库
-
+  cupertino_icons: ^1.0.0
   english_words: ^3.1.5
-  shared_preferences: ^0.5.12+2
-  url_launcher: ^5.7.8 #打开第三方应用
+  shared_preferences: ^0.5.12+4
+  url_launcher: ^5.7.10 #打开第三方应用
   flutter_map: ^0.10.1+1
   dio: ^3.0.10 #网络请求库
+  webview_flutter: ^1.0.6
   flutter_webview_plugin: ^0.3.11
-  webview_flutter: ^1.0.5
-  amap_location_fluttify: ^0.17.0
+  amap_location_fluttify: ^0.20.0
   share: ^0.6.5+4
   cached_network_image: ^2.3.3 #网络图片
   fluttertoast: ^7.1.1 #Toast消息提示
   flutter_svg: ^0.19.1
   photo_view: ^0.10.2  #大图预览
   flutter_spinkit: ^4.1.2+1
-  permission_handler: ^5.0.0+hotfix.3
+  permission_handler: ^5.0.1+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

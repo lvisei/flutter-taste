@@ -1,33 +1,30 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="top.ywbang.flutter_demo_app">
+    package="icu.ywbang.flutter_demo">
 
-     <!--
-    Internet permissions do not affect the `permission_handler` plugin, but are required if your app needs access to
-    the internet.
-    -->
+    <!--Internet permissions-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <!-- Permissions options for the `location` group -->
-    <!--用于访问GPS定位-->
+    <!--允许程序访问GPS amap用于访问GPS定位-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--用于进行网络定位-->
+    <!--允许程序访问CellID或WiFi热点来获取粗略的位置 amap用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--允许程序后台定位 amap-->
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <!--获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <!--允许程序获取网络状态 amap获取运营商信息，用于支持提供运营商信息相关的接口-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <!--允许程序访问WiFi网络信息 amap用于访问wifi网络信息，wifi信息会用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <!--用于读取手机当前的状态-->
+    <!--允许程序读写手机状态和身份 amap-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--写入扩展存储，向扩展卡写入数据，用于写入缓存定位数据-->
+    <!--允许程序设置内置sd卡的写权限 amap用于写入缓存定位数据-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <!--用于申请调用A-GPS模块-->
+    <!--用于申请调用A-GPS模块 amap-->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!--用于申请获取蓝牙信息进行室内定位-->
+    <!--蓝牙权限 amap用于申请获取蓝牙信息进行室内定位-->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
 
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
@@ -37,7 +34,8 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutter demo"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -45,6 +43,23 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+            <!-- Specifies an Android theme to apply to this Activity as soon as
+                 the Android process has started. This theme is visible to the user
+                 while the Flutter UI initializes. After that, this theme continues
+                 to determine the Window background behind the Flutter UI. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.NormalTheme"
+              android:resource="@style/NormalTheme"
+              />
+            <!-- Displays an Android View that continues showing the launch screen
+                 Drawable until Flutter paints its first frame, then this splash
+                 screen fades out. A splash screen is useful to avoid any visual
+                 gap between the end of Android's launch screen and the painting of
+                 Flutter's first frame. -->
+            <meta-data
+              android:name="io.flutter.embedding.android.SplashScreenDrawable"
+              android:resource="@drawable/launch_background"
+              />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

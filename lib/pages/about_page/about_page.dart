@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'dart:ui' show ImageFilter;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_demo_app/pages/web_view_page/web_view_page.dart.dart';
+import 'package:flutter_demo/pages/web_view_page/web_view_page.dart.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:photo_view/photo_view.dart';
 
-import 'package:flutter_demo_app/shared/constants.dart';
-import 'package:flutter_demo_app/utils/screen_utils.dart';
+import 'package:flutter_demo/shared/constants.dart';
+import 'package:flutter_demo/utils/device_screen.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -17,17 +17,17 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  String avatarUrl = ServerUrl.avatarUrl;
-  String avatarBgUrl = ServerUrl.avatarBgUrl03;
+  String avatarUrl = AvatarUrl.avatarUrl;
+  String avatarBgUrl = AvatarUrl.avatarBgUrl03;
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtils.updateStatusBarStyle(SystemUiOverlayStyle.light);
+    DeviceScreen.updateStatusBarStyle(SystemUiOverlayStyle.light);
     return Scaffold(
       body: Container(
           color: Color(0xFFFFFFFF),
-          height: ScreenUtils.height,
-          width: ScreenUtils.width,
+          height: DeviceScreen.height,
+          width: DeviceScreen.width,
           child: ListView(
             padding: EdgeInsets.only(top: 0),
             children: <Widget>[
@@ -65,11 +65,10 @@ class _AboutPageState extends State<AboutPage> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (BuildContext context, _, __) =>
-            WebViewPage(
-              url: 'https://github.com/liuvigongzuoshi/flutter-demo',
-              title: 'About Demo',
-            ),
+        pageBuilder: (BuildContext context, _, __) => WebViewPage(
+          url: 'https://github.com/liuvigongzuoshi/flutter-demo',
+          title: 'About Demo',
+        ),
         transitionDuration: const Duration(milliseconds: 100),
       ),
     );
@@ -79,11 +78,10 @@ class _AboutPageState extends State<AboutPage> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (BuildContext context, _, __) =>
-            WebViewPage(
-              url: 'https://github.com/liuvigongzuoshi/cesium-react',
-              title: 'cesium-react',
-            ),
+        pageBuilder: (BuildContext context, _, __) => WebViewPage(
+          url: 'https://github.com/liuvigongzuoshi/cesium-react',
+          title: 'cesium-react',
+        ),
         transitionDuration: const Duration(milliseconds: 100),
       ),
     );
@@ -93,11 +91,10 @@ class _AboutPageState extends State<AboutPage> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (BuildContext context, _, __) =>
-            WebViewPage(
-              url: 'https://juejin.im/tag/Flutter',
-              title: 'Juejin Flutter',
-            ),
+        pageBuilder: (BuildContext context, _, __) => WebViewPage(
+          url: 'https://juejin.im/tag/Flutter',
+          title: 'Juejin Flutter',
+        ),
         transitionDuration: const Duration(milliseconds: 100),
       ),
     );
@@ -112,11 +109,10 @@ class _AboutPageState extends State<AboutPage> {
     Navigator.push(
       context,
       PageRouteBuilder(
-        pageBuilder: (BuildContext context, _, __) =>
-            Container(
-                child: PhotoView(
-                  imageProvider: imageProvider,
-                )),
+        pageBuilder: (BuildContext context, _, __) => Container(
+            child: PhotoView(
+          imageProvider: imageProvider,
+        )),
         transitionDuration: const Duration(milliseconds: 100),
       ),
     );
@@ -127,7 +123,7 @@ class _AboutPageState extends State<AboutPage> {
       onTap: onTap,
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
-        width: ScreenUtils.width,
+        width: DeviceScreen.width,
         padding: EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(
           border: Border(
@@ -164,7 +160,7 @@ class _AboutPageState extends State<AboutPage> {
   }
 
   Widget _buildHeader() {
-    double width = ScreenUtils.width;
+    double width = DeviceScreen.width;
     double height = 250;
     return Container(
       width: width,
@@ -181,17 +177,16 @@ class _AboutPageState extends State<AboutPage> {
             opacity: 0,
             child: Container(
               color: Colors.black,
-              width: ScreenUtils.width,
+              width: DeviceScreen.width,
               height: height,
             ),
           ),
           GestureDetector(
-            onTap: () =>
-                _handPreviewImg(CachedNetworkImageProvider(avatarBgUrl)),
+            onTap: () => _handPreviewImg(CachedNetworkImageProvider(avatarBgUrl)),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
               child: Container(
-                width: ScreenUtils.width,
+                width: DeviceScreen.width,
                 height: height,
                 color: Colors.transparent,
                 child: Column(
@@ -199,9 +194,7 @@ class _AboutPageState extends State<AboutPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: () =>
-                          _handPreviewImg(
-                              CachedNetworkImageProvider(avatarUrl)),
+                      onTap: () => _handPreviewImg(CachedNetworkImageProvider(avatarUrl)),
                       child: CircleAvatar(
                         backgroundImage: CachedNetworkImageProvider(avatarUrl),
                         radius: 50.0,

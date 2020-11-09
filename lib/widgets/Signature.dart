@@ -11,8 +11,7 @@ class SignaturePainter extends CustomPainter {
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 5.0;
     for (int i = 0; i < points.length - 1; i++) {
-      if (points[i] != null && points[i + 1] != null)
-        canvas.drawLine(points[i], points[i + 1], paint);
+      if (points[i] != null && points[i + 1] != null) canvas.drawLine(points[i], points[i + 1], paint);
     }
   }
 
@@ -32,8 +31,7 @@ class SignatureState extends State<Signature> {
         GestureDetector(
           onPanUpdate: (DragUpdateDetails details) {
             RenderBox referenceBox = context.findRenderObject();
-            Offset localPosition =
-                referenceBox.globalToLocal(details.globalPosition);
+            Offset localPosition = referenceBox.globalToLocal(details.globalPosition);
 
             setState(() {
               _points = new List.from(_points)..add(localPosition);
