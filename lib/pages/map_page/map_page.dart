@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo_app/shared/constants.dart';
+import 'package:flutter_demo/shared/constants.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:latlong/latlong.dart';
-import 'package:amap_core_fluttify/amap_core_fluttify.dart' hide LatLng;
-import 'package:amap_location_fluttify/amap_location_fluttify.dart';
+import 'package:amap_location_fluttify/amap_location_fluttify.dart' hide LatLng;
 import 'package:permission_handler/permission_handler.dart';
 
 class MapPage extends StatefulWidget {
@@ -34,25 +33,18 @@ class _MapPageState extends State<MapPage> {
 
   void _showSnackBar(content) {
     Scaffold.of(context).showSnackBar(new SnackBar(
-        content: content,
-        duration: new Duration(seconds: 1),
-        backgroundColor: Color.fromARGB(0, 0, 0, 0)));
+        content: content, duration: new Duration(seconds: 1), backgroundColor: Color.fromARGB(0, 0, 0, 0)));
   }
 
   void _getLocatin() async {
     var status = await Permission.locationWhenInUse.status;
-    if (status.isUndetermined ||
-        status.isDenied ||
-        status.isRestricted ||
-        status.isPermanentlyDenied) {
+    if (status.isUndetermined || status.isDenied || status.isRestricted || status.isPermanentlyDenied) {
       Map<Permission, PermissionStatus> statuses = await [
         Permission.locationWhenInUse,
       ].request();
 
       var locationWhenInUse = statuses[Permission.locationWhenInUse];
-      if (locationWhenInUse.isDenied ||
-          locationWhenInUse.isRestricted ||
-          locationWhenInUse.isPermanentlyDenied) {
+      if (locationWhenInUse.isDenied || locationWhenInUse.isRestricted || locationWhenInUse.isPermanentlyDenied) {
         _showSnackBar(new Text('申请定位权限失败'));
         return;
       }
@@ -60,8 +52,7 @@ class _MapPageState extends State<MapPage> {
 
     final location = await AmapLocation.instance.fetchLocation();
     // print(location);
-    setState(() => locationmPoint =
-        new LatLng(location.latLng.latitude, location.latLng.longitude));
+    setState(() => locationmPoint = new LatLng(location.latLng.latitude, location.latLng.longitude));
 
     mapController.move(
       LatLng(locationmPoint.latitude, locationmPoint.longitude),
@@ -107,25 +98,17 @@ class _MapPageState extends State<MapPage> {
           ),
     ];
     List<Polyline> polylines = <Polyline>[
-      new Polyline(
-          points: [beijing, chengdu, taiwan],
-          strokeWidth: 4.0,
-          color: Colors.redAccent,
-          isDotted: true)
+      new Polyline(points: [beijing, chengdu, taiwan], strokeWidth: 4.0, color: Colors.redAccent, isDotted: true)
     ];
     List<Polygon> polygons = <Polygon>[
-      new Polygon(
-          points: [
-            new LatLng(35.916846, 108.391220),
-            new LatLng(39.916846, 104.391220),
-            new LatLng(41.916846, 88.391220),
-            new LatLng(35.916846, 91.391220),
-            new LatLng(37.916846, 104.391220),
-            new LatLng(35.916846, 108.391220),
-          ],
-          borderStrokeWidth: 10,
-          color: Color(0xFFFFFFFF).withOpacity(0.5),
-          borderColor: Color.fromARGB(150, 52, 33, 55))
+      new Polygon(points: [
+        new LatLng(35.916846, 108.391220),
+        new LatLng(39.916846, 104.391220),
+        new LatLng(41.916846, 88.391220),
+        new LatLng(35.916846, 91.391220),
+        new LatLng(37.916846, 104.391220),
+        new LatLng(35.916846, 108.391220),
+      ], borderStrokeWidth: 10, color: Color(0xFFFFFFFF).withOpacity(0.5), borderColor: Color.fromARGB(150, 52, 33, 55))
     ];
     List<Marker> locationmMrkers = <Marker>[
       new Marker(
@@ -144,22 +127,16 @@ class _MapPageState extends State<MapPage> {
     ];
 
     // 状态栏高度
-    double statusBarHeight =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top;
+    double statusBarHeight = MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top;
 
     return Stack(
       children: <Widget>[
         FlutterMap(
           mapController: mapController,
-          options: new MapOptions(
-              center: new LatLng(36, 105), zoom: 2.5, minZoom: 2, maxZoom: 18),
+          options: new MapOptions(center: new LatLng(36, 105), zoom: 2.5, minZoom: 2, maxZoom: 18),
           layers: [
-            new TileLayerOptions(
-                urlTemplate: TdtMapUrl.vec_w,
-                backgroundColor: const Color(0xFFFFFFFF).withOpacity(0)),
-            new TileLayerOptions(
-                urlTemplate: TdtMapUrl.cva_w,
-                backgroundColor: const Color(0xFFFFFFFF).withOpacity(0)),
+            new TileLayerOptions(urlTemplate: TdtMapUrl.vec_w, backgroundColor: const Color(0xFFFFFFFF).withOpacity(0)),
+            new TileLayerOptions(urlTemplate: TdtMapUrl.cva_w, backgroundColor: const Color(0xFFFFFFFF).withOpacity(0)),
             new PolylineLayerOptions(polylines: polylines),
             new CircleLayerOptions(circles: circleMarkers),
             new PolygonLayerOptions(polygons: polygons),

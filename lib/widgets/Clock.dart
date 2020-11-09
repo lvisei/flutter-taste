@@ -53,10 +53,7 @@ class ClockState extends State<Clock> {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: ClockPainter(datetime,
-          numberColor: Colors.black,
-          handColor: Colors.black,
-          borderColor: Colors.black,
-          radius: widget.radius),
+          numberColor: Colors.black, handColor: Colors.black, borderColor: Colors.black, radius: widget.radius),
       size: Size(widget.radius * 2, widget.radius * 2),
     );
   }
@@ -83,8 +80,7 @@ class ClockPainter extends CustomPainter {
     //init seconds offset
     for (var i = 0; i < 60; i++) {
       Offset offset = Offset(
-          cos(degToRad(6 * i - 90)) * secondDistance + radius,
-          sin(degToRad(6 * i - 90)) * secondDistance + radius);
+          cos(degToRad(6 * i - 90)) * secondDistance + radius, sin(degToRad(6 * i - 90)) * secondDistance + radius);
       secondsOffset.add(offset);
     }
 
@@ -104,8 +100,7 @@ class ClockPainter extends CustomPainter {
       ..color = borderColor
       ..style = PaintingStyle.stroke
       ..strokeWidth = borderWidth;
-    canvas.drawCircle(
-        Offset(radius, radius), radius - borderWidth / 2, borderPaint);
+    canvas.drawCircle(Offset(radius, radius), radius - borderWidth / 2, borderPaint);
 
     //draw second point
     final secondPPaint = Paint()
@@ -138,8 +133,7 @@ class ClockPainter extends CustomPainter {
           canvas.rotate(-angle * i);
 
           textPainter.layout();
-          textPainter.paint(canvas,
-              new Offset(-(textPainter.width / 2), -(textPainter.height / 2)));
+          textPainter.paint(canvas, new Offset(-(textPainter.width / 2), -(textPainter.height / 2)));
           canvas.restore();
         }
         canvas.rotate(angle);
@@ -157,11 +151,9 @@ class ClockPainter extends CustomPainter {
     final second = datetime.second;
 
     // draw hour hand
-    Offset hourHand1 = Offset(
-        radius - cos(degToRad(360 / 12 * hour - 90)) * (radius * 0.2),
+    Offset hourHand1 = Offset(radius - cos(degToRad(360 / 12 * hour - 90)) * (radius * 0.2),
         radius - sin(degToRad(360 / 12 * hour - 90)) * (radius * 0.2));
-    Offset hourHand2 = Offset(
-        radius + cos(degToRad(360 / 12 * hour - 90)) * (radius * 0.5),
+    Offset hourHand2 = Offset(radius + cos(degToRad(360 / 12 * hour - 90)) * (radius * 0.5),
         radius + sin(degToRad(360 / 12 * hour - 90)) * (radius * 0.5));
     final hourPaint = Paint()
       ..color = handColor
@@ -169,28 +161,20 @@ class ClockPainter extends CustomPainter {
     canvas.drawLine(hourHand1, hourHand2, hourPaint);
 
     // draw minute hand
-    Offset minuteHand1 = Offset(
-        radius - cos(degToRad(360 / 60 * minute - 90)) * (radius * 0.3),
+    Offset minuteHand1 = Offset(radius - cos(degToRad(360 / 60 * minute - 90)) * (radius * 0.3),
         radius - sin(degToRad(360 / 60 * minute - 90)) * (radius * 0.3));
-    Offset minuteHand2 = Offset(
-        radius +
-            cos(degToRad(360 / 60 * minute - 90)) * (radius - borderWidth * 3),
-        radius +
-            sin(degToRad(360 / 60 * minute - 90)) * (radius - borderWidth * 3));
+    Offset minuteHand2 = Offset(radius + cos(degToRad(360 / 60 * minute - 90)) * (radius - borderWidth * 3),
+        radius + sin(degToRad(360 / 60 * minute - 90)) * (radius - borderWidth * 3));
     final minutePaint = Paint()
       ..color = handColor
       ..strokeWidth = 3 * scale;
     canvas.drawLine(minuteHand1, minuteHand2, minutePaint);
 
     // draw second hand
-    Offset secondHand1 = Offset(
-        radius - cos(degToRad(360 / 60 * second - 90)) * (radius * 0.3),
+    Offset secondHand1 = Offset(radius - cos(degToRad(360 / 60 * second - 90)) * (radius * 0.3),
         radius - sin(degToRad(360 / 60 * second - 90)) * (radius * 0.3));
-    Offset secondHand2 = Offset(
-        radius +
-            cos(degToRad(360 / 60 * second - 90)) * (radius - borderWidth * 3),
-        radius +
-            sin(degToRad(360 / 60 * second - 90)) * (radius - borderWidth * 3));
+    Offset secondHand2 = Offset(radius + cos(degToRad(360 / 60 * second - 90)) * (radius - borderWidth * 3),
+        radius + sin(degToRad(360 / 60 * second - 90)) * (radius - borderWidth * 3));
     final secondPaint = Paint()
       ..color = handColor
       ..strokeWidth = 1 * scale;

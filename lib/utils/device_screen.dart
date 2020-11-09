@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:ui' as ui show window;
 
-class ScreenUtils {
+class DeviceScreen {
   static double get width {
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.size.width;

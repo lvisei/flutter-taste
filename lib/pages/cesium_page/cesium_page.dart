@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_demo_app/utils/screen_utils.dart';
+import 'package:flutter_demo/utils/device_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -20,8 +20,7 @@ class _CesiumPageState extends State<CesiumPage> {
   String url1 = 'https://threejs.org/examples/#webgl_geometry_minecraft_ao';
   String url2 = 'http://ywbang.top/';
   final Completer<bool> pageLoaded = Completer<bool>();
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  final Completer<WebViewController> _controller = Completer<WebViewController>();
 
   @override
   void initState() {
@@ -47,8 +46,7 @@ class _CesiumPageState extends State<CesiumPage> {
 
   @override
   Widget build(BuildContext context) {
-    double statusBarHeight =
-        MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top;
+    double statusBarHeight = MediaQueryData.fromWindow(WidgetsBinding.instance.window).padding.top;
 
     return Scaffold(
       body: Container(
