@@ -16,7 +16,7 @@ class MainNavigation extends StatefulWidget {
 class _MainNavigationState extends State<MainNavigation> {
   int _currentIndex = 0;
   var __currentPage;
-  var _lastTime;
+  var _lastClickExitTime;
 
   final List<BottomNavigationBarItem> bottomNavigationItems = [
     BottomNavigationBarItem(icon: Icon(Icons.home), label: '首页'),
@@ -39,6 +39,38 @@ class _MainNavigationState extends State<MainNavigation> {
     });
   }
 
+  Future<bool> _onWillPop() async {
+    if (_lastClickExitTime == null || DateTime.now().difference(_lastClickExitTime) > Duration(milliseconds: 1500)) {
+      _lastClickExitTime = DateTime.now();
+      return false;
+    } else {
+      return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('退出App'),
+            content: Text('确定不是手滑？'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(
+                  '取消',
+                ),
+                onPressed: () => Navigator.pop(context, false),
+              ),
+              FlatButton(
+                child: Text(
+                  '退出',
+                ),
+                onPressed: () => Navigator.pop(context, true),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -52,37 +84,7 @@ class _MainNavigationState extends State<MainNavigation> {
             onTap: _onNavigationBarItemTapped),
         body: __currentPage,
       ),
-      onWillPop: () async {
-        if (_lastTime == null || DateTime.now().difference(_lastTime) > Duration(milliseconds: 2000)) {
-          _lastTime = DateTime.now();
-          return false;
-        } else {
-          return showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('退出App'),
-                content: Text('确定不是手滑？'),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text(
-                      '取消',
-                    ),
-                    onPressed: () => Navigator.pop(context, false),
-                  ),
-                  FlatButton(
-                    child: Text(
-                      '退出',
-                    ),
-                    onPressed: () => Navigator.pop(context, true),
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      },
+      onWillPop: _onWillPop,
     );
   }
 }

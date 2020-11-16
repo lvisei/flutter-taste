@@ -1,11 +1,19 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_demo/layouts/main_navigation.dart';
+import 'package:flutter_demo/utils/request.dart';
 
 /*void main() => runApp(MyApp());*/
 
 void main() {
+  // request
+  // 自定义 jsonDecodeCallback
+  (request.transformer as DefaultTransformer).jsonDecodeCallback = parseJson;
+  // 添加拦截器
+  request.interceptors.add(LogInterceptor());
+
   runApp(MyApp());
   if (Platform.isAndroid) {
     // 设置沉浸式状态栏
