@@ -26,7 +26,11 @@ class UserList {
 
   UserList(this.userList);
 
-  UserList.fromJson(Map<String, dynamic> json) : userList = json['userList'];
+  UserList.fromJson(Map<String, dynamic> json)
+      : userList = json['userList']
+            .cast<Map<String, dynamic>>()
+            .map<UserListItem>((json) => UserListItem.fromJson(json))
+            .toList();
 
   Map<String, dynamic> toJson() => {'userList': userList};
 }
