@@ -15,6 +15,7 @@ void main() {
   request.interceptors.add(LogInterceptor());
 
   runApp(MyApp());
+
   if (Platform.isAndroid) {
     // 设置沉浸式状态栏
     SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);

@@ -7,30 +7,30 @@ import 'package:flutter_demo/utils/request.dart';
 class ApiUserList {
   /// 获取用户列表接口
   static Future<UserList> getUserList() async {
-    Response<ResponseDataJson> response = await request.get<ResponseDataJson>("/view/list");
+    // Response<ResponseDataJson<Map<String, dynamic>>> response = await request.get("/view/list");
+    Response<Map> response = await request.get("/view/list");
     final responseJson = response.data;
-    final responseData = responseJson.data;
-    print("-------------------------------------");
-    // UserList parseUserList(Map<String, dynamic> responseData) =>
-    //     UserList.fromJson(responseData);
-    // final userList = compute(parseUserList, responseData);
+    Map<String, dynamic> responseData = responseJson["data"];
+    // UserList parseUserList(Map<String, dynamic> responseData) => UserList.fromJson(responseData);
+    // final userList = await compute(parseUserList, responseData);
+    // print(userList);
     final userList = UserList.fromJson(responseData);
 
     return userList;
   }
 
   /// 获取用户列表接口
-  static Future<List<UserListItem>> getUserListX() async {
-    Response<ResponseDataJson> response = await request.get<ResponseDataJson>("/view/list");
+  static Future<UserList> getUserListX() async {
+    Response response = await request.get("/view/list");
     final responseJson = response.data;
-    final responseData = responseJson.data;
+    Map<String, dynamic> responseData = responseJson["data"];
     List<UserListItem> parseUserListItem(Map<String, dynamic> responseData) {
       final parsed = responseData['userList'].cast<Map<String, dynamic>>();
       return parsed.map<UserListItem>((json) => UserListItem.fromJson(json)).toList();
     }
 
-    final userList = compute(parseUserListItem, responseData);
+    final userList = await compute(parseUserListItem, responseData);
 
-    return userList;
+    return UserList(userList);
   }
 }
