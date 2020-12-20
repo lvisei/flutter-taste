@@ -1,4 +1,4 @@
-# flutter-demo
+# flutter-taste
 A initial taste of the Flutter project
 
 ## Getting Started
@@ -6,7 +6,7 @@ A initial taste of the Flutter project
 ## Clone Project
 
 ```bash
-git clone https://github.com/liuvigongzuoshi/flutter-demo.git
+git clone https://github.com/liuvigongzuoshi/flutter-taste.git
 ```
 
 ### Flutter Install
